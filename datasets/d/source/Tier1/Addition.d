@@ -5,9 +5,9 @@ int add(int a, int b) {
 }
 
 void main() {
-    writeln("%d\n", add(0, 1));
-    writeln("%d\n", add(7, 13));
-    writeln("%d\n", add(65_536, 1000));
-    writeln("%d\n", add(64, 8));
-    writeln("%d\n", add(-42, -1));
+    writeln(add(0, 1));
+    writeln(add(7, 13));
+    writeln(add(65_536, 1000));
+    writeln(add(64, 8));
+    writeln(add(-42, -1));
 }

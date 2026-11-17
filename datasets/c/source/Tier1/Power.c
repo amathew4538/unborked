@@ -1,14 +1,14 @@
-#include <math.h>
 #include <stdio.h>
 
-int modulo(int a, int b) {
-    return pow(a, b);
+int power(int a, int b) {
+    int result = 1;
+    for (int i = 0; i < b; i++) {
+        result *= a;
+    }
+    return result;
 }
 
 int main() {
-    printf("%d\n", modulo(0, 1));
-    printf("%d\n", modulo(7, 13));
-    printf("%d\n", modulo(65536, 1000));
-    printf("%d\n", modulo(64, 8));
-    printf("%d\n", modulo(-42, -1));
+    printf("%d\n", power(2, 8));
+    printf("%d\n", power(3, 4));
 }

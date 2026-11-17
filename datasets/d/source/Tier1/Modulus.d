@@ -5,9 +5,9 @@ int modulo(int a, int b) {
 }
 
 void main() {
-    writeln("%d\n", modulo(0, 1));
-    writeln("%d\n", modulo(7, 13));
-    writeln("%d\n", modulo(65_536, 1000));
-    writeln("%d\n", modulo(64, 8));
-    writeln("%d\n", modulo(-42, -1));
+    writeln(modulo(0, 1));
+    writeln(modulo(7, 13));
+    writeln(modulo(65_536, 1000));
+    writeln(modulo(64, 8));
+    writeln(modulo(-42, -1));
 }

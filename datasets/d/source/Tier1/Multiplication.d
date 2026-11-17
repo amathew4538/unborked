@@ -5,9 +5,9 @@ int multiply(int a, int b) {
 }
 
 void main() {
-    writeln("%d\n", multiply(0, 1));
-    writeln("%d\n", multiply(7, 13));
-    writeln("%d\n", multiply(65_536, 1000));
-    writeln("%d\n", multiply(64, 8));
-    writeln("%d\n", multiply(-42, -1));
+    writeln(multiply(0, 1));
+    writeln(multiply(7, 13));
+    writeln(multiply(65_536, 1000));
+    writeln(multiply(64, 8));
+    writeln(multiply(-42, -1));
 }

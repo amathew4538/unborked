@@ -5,9 +5,9 @@ int divide(int a, int b) {
 }
 
 void main() {
-    writeln("%d\n", divide(0, 1));
-    writeln("%d\n", divide(7, 13));
-    writeln("%d\n", divide(65_536, 1000));
-    writeln("%d\n", divide(64, 8));
-    writeln("%d\n", divide(-42, -1));
+    writeln(divide(0, 1));
+    writeln(divide(7, 13));
+    writeln(divide(65_536, 1000));
+    writeln(divide(64, 8));
+    writeln(divide(-42, -1));
 }

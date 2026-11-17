@@ -3,7 +3,7 @@ namespace Tier1
     class Division
 
     {
-        int Divide(int a, int b) {
+        static int Divide(int a, int b) {
             return a / b;
         }
 

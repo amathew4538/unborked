@@ -5,9 +5,9 @@ int subtract(int a, int b) {
 }
 
 void main() {
-    writeln("%d\n", subtract(0, 1));
-    writeln("%d\n", subtract(7, 13));
-    writeln("%d\n", subtract(65_536, 1000));
-    writeln("%d\n", subtract(64, 8));
-    writeln("%d\n", subtract(-42, -1));
+    writeln(subtract(0, 1));
+    writeln(subtract(7, 13));
+    writeln(subtract(65_536, 1000));
+    writeln(subtract(64, 8));
+    writeln(subtract(-42, -1));
 }
