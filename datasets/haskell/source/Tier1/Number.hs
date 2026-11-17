@@ -1,0 +1,12 @@
+main :: IO ()
+main = do
+    print 0
+    print 1
+    print 8
+    print 64
+    print 7
+    print 13
+    print (-1)
+    print (-42)
+    print 1000
+    print 65536

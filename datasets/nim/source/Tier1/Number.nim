@@ -1,0 +1,10 @@
+echo 0
+echo 1
+echo 8
+echo 64
+echo 7
+echo 13
+echo -1
+echo -42
+echo 1000
+echo 65536
