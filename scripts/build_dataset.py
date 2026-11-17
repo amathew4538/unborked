@@ -1,4 +1,5 @@
-"""Build native binaries and assembly/bytecode outputs for the datasets.
+"""
+Build native binaries and assembly/bytecode outputs for the datasets.
 
 All compiler intermediates are written to temporary directories. Only the
 requested final artifacts are retained under datasets/<language>/{bin,asm}.

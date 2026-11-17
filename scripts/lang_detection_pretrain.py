@@ -1,5 +1,7 @@
 """
 Handles pretraining for lang detection from asm and bin
+
+Current Parameter Count: 469,256
 """
 
 from pathlib import Path
