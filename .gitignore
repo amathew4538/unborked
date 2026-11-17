@@ -1,2 +1,14 @@
 asm/
 bin/
+
+.DS_Store
+.clj-kondo/
+.gradle/
+.ipynb_checkpoints/
+.vscode/
+build/
+.mypy_cache/
+__pycache__/
+.scala_build/
+.metals/
+.lsp/
