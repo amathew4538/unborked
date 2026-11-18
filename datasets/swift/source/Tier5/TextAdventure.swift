@@ -1,0 +1,6 @@
+print("room: courtyard")
+print("action: north")
+print("room: library")
+print("item: key")
+print("inventory: key")
+print("outcome: door unlocked")

@@ -79,9 +79,26 @@ SCRIPTS = {
         "Array",
         "Recursion",
     ],
-    "Tier3": [],
-    "Tier4": [],
-    "Tier5": [],
+    "Tier3": [
+        "FileSystem",
+        "StringProcessing",
+        "Sorting",
+        "Matrix",
+        "BinarySearch",
+    ],
+    "Tier4": [
+        "GuessingGame",
+        "TicTacToe",
+        "Calculator",
+        "PrimeSieve",
+        "LruCache",
+    ],
+    "Tier5": [
+        "TextAdventure",
+        "GameOfLife",
+        "StateMachine",
+        "DataPipeline",
+    ],
 }
 
 OPTIMIZATION_LEVELS = {
