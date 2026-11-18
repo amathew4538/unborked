@@ -27,8 +27,8 @@ DATASETS = ROOT / "datasets"
 
 LANGUAGES = {
     "c": {"ext": "c", "bin_ext": "", "asm_ext": ".s", "kind": "c"},
-    "cpp": {"ext": "cpp", "bin_ext": "", "asm_ext": ".s", "kind": "cpp"},
     "clojure": {"ext": "clj", "bin_ext": ".jar", "asm_ext": "", "kind": "jvm_clojure"},
+    "cpp": {"ext": "cpp", "bin_ext": "", "asm_ext": ".s", "kind": "cpp"},
     "cs": {"ext": "cs", "bin_ext": ".dll", "asm_ext": ".il", "kind": "dotnet"},
     "d": {"ext": "d", "bin_ext": "", "asm_ext": ".s", "kind": "d"},
     "go": {"ext": "go", "bin_ext": "", "asm_ext": ".s", "kind": "go"},

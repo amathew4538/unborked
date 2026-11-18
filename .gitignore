@@ -12,3 +12,4 @@ __pycache__/
 .scala-build/
 .metals/
 .lsp/
+.build_*/

@@ -8,4 +8,3 @@
       (println (apply str (interpose " "
         (for [column (range 2)]
           (apply + (map * row (map #(nth % column) right))))))))))
-)
