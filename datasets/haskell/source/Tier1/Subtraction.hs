@@ -1,2 +1,5 @@
+subtract :: Num a => a -> a -> a
 subtract a b = a - b
-main = mapM_ print [subtract 0 1, subtract 7 13, subtract 65536 1000, subtract 64 8, subtract (-42) (-1)]
+
+main :: IO ()
+main = mapM_ print [Main.subtract 0 1, Main.subtract 7 13, Main.subtract 65536 1000, Main.subtract 64 8, Main.subtract (-42) (-1)]

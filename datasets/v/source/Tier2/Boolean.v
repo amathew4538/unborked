@@ -1,1 +1,4 @@
-fn main() { println(true); println(false) }
+fn main() {
+	println(true)
+	println(false)
+}

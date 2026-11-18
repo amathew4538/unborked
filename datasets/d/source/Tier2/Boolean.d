@@ -1,2 +1,6 @@
 import std.stdio;
-void main() { writeln(true); writeln(false); }
+
+void main() {
+    writeln(true);
+    writeln(false);
+}

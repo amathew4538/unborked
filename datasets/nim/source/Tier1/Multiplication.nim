@@ -1,4 +1,5 @@
 proc multiply(a, b: int): int = a * b
+
 echo multiply(0, 1)
 echo multiply(7, 13)
 echo multiply(65536, 1000)

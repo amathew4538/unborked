@@ -1,4 +1,7 @@
-func subtract(_ a:Int,_ b:Int)->Int { a - b }
+func subtract(_ a:Int,_ b:Int)->Int {
+    a - b
+}
+
 print(subtract(0, 1))
 print(subtract(7, 13))
 print(subtract(65536, 1000))

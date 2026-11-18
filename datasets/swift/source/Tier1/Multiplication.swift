@@ -1,4 +1,7 @@
-func multiply(_ a:Int,_ b:Int)->Int { a * b }
+func multiply(_ a:Int,_ b:Int)->Int {
+    a * b
+}
+
 print(multiply(0, 1))
 print(multiply(7, 13))
 print(multiply(65536, 1000))

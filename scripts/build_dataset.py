@@ -17,17 +17,13 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+USE_COLOR = sys.stdout.isatty()
+GREEN = "\033[92m" if USE_COLOR else ""
+RED = "\033[91m" if USE_COLOR else ""
+RESET = "\033[0m" if USE_COLOR else ""
+
 ROOT = Path(__file__).resolve().parent.parent
 DATASETS = ROOT / "datasets"
-
-
-class MissingSourceError(Exception):
-    """Raised when a required source directory is missing."""
-
-
-class BuildError(Exception):
-    """Raised when a compiler command fails or an expected artifact is absent."""
-
 
 LANGUAGES = {
     "c": {"ext": "c", "bin_ext": "", "asm_ext": ".s", "kind": "c"},
@@ -103,6 +99,14 @@ OPTIMIZATION_LEVELS = {
     "swift": ("O0", "O2"),  # Swift -Onone / -O
     "v": ("O0", "O2"),  # V development / -prod modes
 }
+
+
+class MissingSourceError(Exception):
+    """Raised when a required source directory is missing."""
+
+
+class BuildError(Exception):
+    """Raised when a compiler command fails or an expected artifact is absent."""
 
 
 def run_command(
@@ -284,7 +288,9 @@ def build_jvm(
 
     class_files = sorted(classes_dir.rglob("*.class"))
     if not class_files:
-        raise BuildError(f"{language} compiler succeeded but produced no .class files.")
+        raise BuildError(
+            f"{RED}{language} compiler succeeded but produced no .class files.{RESET}"
+        )
 
     if language == "clojure":
         source_text = source.read_text(encoding="utf-8")
@@ -330,7 +336,7 @@ def build_jvm(
     )
 
     if result.returncode != 0:
-        raise BuildError(f"javap failed for {source.name}: {result.stderr}")
+        raise BuildError(f"{RED}javap failed for {source.name}: {result.stderr}{RESET}")
 
     asm_file.write_text(result.stdout, encoding="utf-8")
 
@@ -361,8 +367,8 @@ def write_il_dump(assembly: Path, output_asm: Path, verbose: bool) -> None:
         result = run_command([ildasm, "/text", str(assembly)], verbose=verbose)
     else:
         raise BuildError(
-            "The binary was built, but no IL disassembler is installed. "
-            "Install Mono's `monodis` or Microsoft's `ildasm` to create the .il file."
+            f"{RED}The binary was built, but no IL disassembler is installed. "
+            f"Install Mono's `monodis` or Microsoft's `ildasm` to create the .il file.{RESET}"
         )
     write_text(output_asm, result.stdout or "")
 
@@ -426,7 +432,7 @@ def build_dotnet(
     )
     built_dll = output_dir / f"{script}.dll"
     if not built_dll.is_file():
-        raise BuildError(f"dotnet build completed but did not create {built_dll.name}.")
+        raise BuildError(f"{RED}dotnet build completed but did not create {built_dll.name}.{RESET}")
 
     output_bin.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(built_dll, output_bin)
@@ -543,7 +549,7 @@ def build_binary(
     run_command(command, cwd=stage, verbose=verbose)
     if not output_bin.is_file():
         raise BuildError(
-            f"Compiler returned success but did not create {output_bin.name}."
+            f"{RED}Compiler returned success but did not create {output_bin.name}.{RESET}"
         )
 
 
@@ -634,6 +640,7 @@ def build_assembly(
         cache = stage / "nim-asm-cache"
         cache.mkdir(parents=True, exist_ok=True)
         opt_flag = "--opt:none" if optimization == "O0" else "--opt:speed"
+
         run_command(
             [
                 "nim",
@@ -648,8 +655,10 @@ def build_assembly(
             cwd=stage,
             verbose=verbose,
         )
+
         generated = sorted(p for p in cache.rglob("*.o") if p.is_file())
         pieces = []
+
         for path in generated:
             try:
                 assembly_text = path.read_text(encoding="utf-8")
@@ -667,6 +676,7 @@ def build_assembly(
                 f"in {cache}. Check whether Nim is using a Clang/GCC C backend."
             )
         write_text(output_asm, "\n".join(pieces))
+
     elif kind == "v":
         generated_c = stage / f"{source.stem}.generated.c"
         v_command = ["v"]
@@ -728,7 +738,9 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                     )
 
                 if not source.is_file():
-                    print(f"Skipping missing source file: {source.relative_to(ROOT)}")
+                    print(
+                        f"{RED}Skipping missing source file: {source.relative_to(ROOT)}{RESET}"
+                    )
                     continue
 
                 bin_dir = DATASETS / language / "bin" / tier
@@ -790,36 +802,50 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                 )
                                 binary_ok = assembly_ok = True
                             elif kind == "dotnet":
-                                assert optimization is not None, (
-                                    "A .NET build must have an optimization level."
-                                )
+                                assert (
+                                    optimization is not None
+                                ), "A .NET build must have an optimization level."
 
                                 build_dotnet(
-                                    source, script, output_bin, output_asm,
-                                    stage, verbose, optimization,
+                                    source,
+                                    script,
+                                    output_bin,
+                                    output_asm,
+                                    stage,
+                                    verbose,
+                                    optimization,
                                 )
                                 binary_ok = True
                                 assembly_ok = output_asm.is_file()
                             elif kind == "mcs":
-                                assert optimization is not None, (
-                                    "A Mono C# build must have an optimization level."
-                                )
+                                assert (
+                                    optimization is not None
+                                ), "A Mono C# build must have an optimization level."
                                 build_mcs(
-                                    source, script, output_bin, output_asm,
-                                    stage, verbose, optimization,
+                                    source,
+                                    script,
+                                    output_bin,
+                                    output_asm,
+                                    stage,
+                                    verbose,
+                                    optimization,
                                 )
                                 binary_ok = True
                                 assembly_ok = output_asm.is_file()
                             else:
-                                assert optimization is not None, (
-                                    "A native build must have an optimization level."
-                                )
+                                assert (
+                                    optimization is not None
+                                ), "A native build must have an optimization level."
                                 build_binary(
-                                    language, source, output_bin, stage,
-                                    verbose, optimization,
+                                    language,
+                                    source,
+                                    output_bin,
+                                    stage,
+                                    verbose,
+                                    optimization,
                                 )
                                 binary_ok = True
-                                print(f"binary built: {output_bin.relative_to(ROOT)}")
+                                print(f"{GREEN}binary built: {output_bin.relative_to(ROOT)}{RESET}")
                         except BuildError as exc:
                             binary_ok = output_bin.is_file()
                             assembly_ok = (
@@ -828,17 +854,17 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                 else any(asm_dir.glob(f"{output_bin.stem}.javap"))
                             )
                             print(
-                                f"Build failed for {language}/{script}/"
-                                f"{optimization or 'default'}:\n{exc}"
+                                f"{RED}Build failed for {language}/{script}/"
+                                f"{optimization or 'default'}:\n{exc}{RESET}"
                             )
 
                         if not kind.startswith("jvm_") and kind not in {
                             "dotnet",
                             "mcs",
                         }:
-                            assert optimization is not None, (
-                                "Assembly generation must have an optimization level."
-                            )
+                            assert (
+                                optimization is not None
+                            ), "Assembly generation must have an optimization level."
 
                             try:
                                 build_assembly(
@@ -850,31 +876,33 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                     optimization,
                                 )
                                 assembly_ok = True
-                                print(f"  assembly: {output_asm.relative_to(ROOT)}")
+                                print(
+                                    f"{GREEN}assembly: {output_asm.relative_to(ROOT)}{RESET}"
+                                )
                             except BuildError as exc:
                                 print(
-                                    f"  assembly failed for {language}/{script}/"
-                                    f"{optimization}:\n{exc}"
+                                    f"{RED}Assembly failed for {language}/{script}/"
+                                    f"{optimization}:\n{exc}{RESET}"
                                 )
 
                         if binary_ok and assembly_ok:
                             print(
-                                f"  Finished {optimization or 'default'}: binary and "
-                                "assembly/bytecode created."
+                                f"{GREEN}Finished {optimization or 'default'}: binary and "
+                                f"assembly/bytecode created.{RESET}"
                             )
                         elif binary_ok:
                             print(
-                                f"  Finished {optimization or 'default'}: binary created; "
-                                "assembly/bytecode missing."
+                                f"{RED}Finished {optimization or 'default'}: binary created; "
+                                f"assembly/bytecode missing.{RESET}"
                             )
                         elif assembly_ok:
                             print(
-                                f"  Finished {optimization or 'default'}: assembly/bytecode "
-                                "created; binary missing."
+                                f"{RED}Finished {optimization or 'default'}: assembly/bytecode "
+                                f"created; binary missing.{RESET}"
                             )
                         else:
                             print(
-                                f"  Failed {optimization or 'default'}: no final artifacts created."
+                                f"{RED}Failed {optimization or 'default'}: no final artifacts created.{RESET}"
                             )
 
                 if language == "haskell":

@@ -4,7 +4,7 @@ import "fmt"
 
 func power(a, b int) int {
 	result := 1
-	for i := 0; i < b; i++ {
+	for range b {
 		result *= a
 	}
 	return result

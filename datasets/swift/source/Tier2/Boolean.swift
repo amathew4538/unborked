@@ -1,1 +1,2 @@
-print(true); print(false)
+print(true)
+print(false)

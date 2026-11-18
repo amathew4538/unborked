@@ -1,1 +1,8 @@
-fn main() { integer_var := 13; float_var := f32(3.14); double_var := 0.456; string_var := 'Hello, World!'; boolean_var := true; println('${integer_var} ${float_var} ${double_var} ${string_var} ${boolean_var}') }
+fn main() {
+	integer_var := 13
+	float_var := f32(3.14)
+	double_var := 0.456
+	string_var := 'Hello, World!'
+	boolean_var := true
+	println('${integer_var} ${float_var} ${double_var} ${string_var} ${boolean_var}')
+}

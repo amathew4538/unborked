@@ -1,3 +1,4 @@
+main :: IO ()
 main = do
     mapM_ print values
     print (sum values)
