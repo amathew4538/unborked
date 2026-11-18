@@ -1,16 +1,1 @@
-package datasets.java.source.Tier4;
-
-import java.util.LinkedHashMap;
-
-public class LruCache {
-    public static void main(String[] args) {
-        LinkedHashMap<String, Integer> cache = new LinkedHashMap<>(3, 0.75f, true);
-        cache.put("A", 1);
-        cache.put("B", 2);
-        System.out.println("A=" + cache.getOrDefault("A", -1));
-        System.out.println("B=" + cache.getOrDefault("B", -1));
-        cache.put("C", 3);
-        cache.remove("B");
-        System.out.println("C=" + cache.getOrDefault("C", -1));
-    }
-}
+import java.util.*; public class LruCache { public static void main(String[] a){LinkedHashMap<Character,Integer> c=new LinkedHashMap<>(3,.75f,true);c.put('A',1);c.put('B',2);c.put('C',3);System.out.println("A="+c.getOrDefault('A',-1));System.out.println("B="+c.getOrDefault('B',-1));c.put('D',4);System.out.println("D="+c.getOrDefault('D',-1));}}

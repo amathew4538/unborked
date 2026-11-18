@@ -1,8 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void) {
-    int values[] = {42, 7, 13, 2, 64, 1};
-    int length = 6;
+    int values[32];
+    int length = 0;
+    printf("Enter up to 32 integers (blank line to finish):\n");
+    while (length < 32) {
+        char line[64];
+        if (!fgets(line, sizeof(line), stdin) || line[0] == '\n') break;
+        values[length] = (int)strtol(line, NULL, 10);
+        ++length;
+    }
+    if (length == 0) {
+        int demo[] = {42, 7, 13, 2, 64, 1};
+        length = 6;
+        for (int i = 0; i < length; ++i) values[i] = demo[i];
+    }
 
     for (int i = 1; i < length; i++) {
         int value = values[i];

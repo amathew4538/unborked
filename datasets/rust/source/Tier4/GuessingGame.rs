@@ -1,10 +1,2 @@
-fn main() {
-    let target = 5;
-    for (turn, guess) in [7, 3, 5].iter().enumerate() {
-        println!("guess {}: {}", turn + 1, guess);
-        if *guess == target {
-            println!("found: {}", target);
-            break;
-        }
-    }
-}
+use std::io::{self,BufRead};
+fn main(){println!("Guess a number from 1 to 100");let target=42;for (i,line) in io::stdin().lock().lines().enumerate().take(8){let guess=line.unwrap_or_default().trim().parse().unwrap_or(50);if guess==target{println!("Correct in {} attempts",i+1);return}println!("{}",if guess<target{"Too low"}else{"Too high"});}println!("Out of guesses");}

@@ -1,6 +1,2 @@
-fn main() {
-    let input = [1, 2, 3, 4, 5, 6];
-    let processed: Vec<_> = input.iter().filter(|value| *value % 2 == 0).map(|value| value * value).collect();
-    println!("processed: {}", processed.len());
-    println!("squares sum: {}", processed.iter().sum::<i32>());
-}
+use std::io::{self,BufRead};
+fn main(){let mut valid=0;let mut invalid=0;let mut total=0;for line in io::stdin().lock().lines().take_while(|l|l.as_ref().map(|s|!s.is_empty()).unwrap_or(false)){let s=line.unwrap_or_default();let mut p=s.split(',');match(p.next().map(str::trim),p.next().and_then(|x|x.parse::<i64>().ok())){(Some(name),Some(amount))=>{valid+=1;total+=amount;println!("accepted {name}: {amount}")},_=>{invalid+=1;println!("rejected: {s}")}}}println!("summary valid={valid} invalid={invalid} total={total}");}

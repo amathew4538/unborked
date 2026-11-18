@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import platform
 import re
 import shutil
 import subprocess
@@ -99,11 +100,288 @@ SCRIPTS = {
         "StateMachine",
         "DataPipeline",
     ],
+    "Tier6": [
+        "IntegerWidths",
+        "SignedUnsigned",
+        "FloatingPoint",
+        "FloatingPointSpecialValues",
+        "CharacterTypes",
+        "StringLiterals",
+        "Constants",
+        "TypeInference",
+        "ImplicitConversion",
+        "ExplicitConversion",
+        "NarrowingConversion",
+        "WideningConversion",
+        "NumericPromotion",
+        "IntegerOverflow",
+        "IntegerUnderflow",
+        "FloatingPointRounding",
+        "BitwiseAnd",
+        "BitwiseOr",
+        "BitwiseXor",
+        "BitwiseNot",
+        "BitwiseShift",
+        "Comparison",
+        "Ternary",
+        "SwitchCase",
+        "PatternMatching",
+    ],
+    "Tier7": [
+        "Struct",
+        "NestedStruct",
+        "Union",
+        "Enum",
+        "ArrayLayout",
+        "MultidimensionalArray",
+        "DynamicArray",
+        "Slice",
+        "Pointer",
+        "PointerArithmetic",
+        "NullPointer",
+        "References",
+        "PassByValue",
+        "PassByReference",
+        "StackAllocation",
+        "HeapAllocation",
+        "AllocationReallocationFree",
+        "MemoryCopy",
+        "MemoryMove",
+        "MemoryAlignment",
+        "MemoryPadding",
+        "PackedStruct",
+        "Endianness",
+        "VolatileAccess",
+        "MemoryAliasing",
+        "Ownership",
+        "Borrowing",
+        "Lifetimes",
+    ],
+    "Tier8": [
+        "FunctionOverloading",
+        "DefaultArguments",
+        "VariadicFunction",
+        "FunctionPointer",
+        "Callback",
+        "NestedFunction",
+        "Lambda",
+        "Closure",
+        "ClosureCapture",
+        "MultipleReturnValues",
+        "EarlyReturn",
+        "BreakContinue",
+        "Goto",
+        "Labels",
+        "TailRecursion",
+        "TailCall",
+        "Generator",
+        "Coroutine",
+        "Defer",
+        "Exception",
+        "ErrorPropagation",
+        "Assertion",
+    ],
+    "Tier9": [
+        "Class",
+        "ObjectConstruction",
+        "Constructor",
+        "Destructor",
+        "InstanceFields",
+        "StaticFields",
+        "StaticMethods",
+        "Inheritance",
+        "MultipleInheritance",
+        "VirtualFunction",
+        "VirtualDispatch",
+        "Interface",
+        "AbstractClass",
+        "MethodOverloading",
+        "OperatorOverloading",
+        "Templates",
+        "Generics",
+        "GenericConstraints",
+        "TemplateSpecialization",
+        "Traits",
+        "ExtensionMethods",
+        "Namespaces",
+        "Modules",
+        "NameMangling",
+        "RuntimeTypeInformation",
+        "Reflection",
+        "Attributes",
+        "Annotations",
+        "CompileTimeEvaluation",
+        "Macros",
+    ],
+    "Tier10": [
+        "CallingConvention",
+        "StackFrame",
+        "RegisterArguments",
+        "StackArguments",
+        "ReturnValueConvention",
+        "StructReturn",
+        "VariadicABI",
+        "GlobalVariables",
+        "ThreadLocalStorage",
+        "StaticInitialization",
+        "DynamicInitialization",
+        "ExceptionUnwinding",
+        "SymbolVisibility",
+        "SymbolMangling",
+        "StaticLinking",
+        "DynamicLinking",
+        "SharedLibrary",
+        "Relocations",
+        "PositionIndependentCode",
+        "PositionIndependentExecutable",
+        "ForeignFunctionInterface",
+        "CInterop",
+    ],
+    "Tier11": [
+        "ThreadCreate",
+        "ThreadJoin",
+        "Mutex",
+        "RecursiveMutex",
+        "Spinlock",
+        "ConditionVariable",
+        "Semaphore",
+        "AtomicLoad",
+        "AtomicStore",
+        "AtomicAdd",
+        "AtomicCompareExchange",
+        "MemoryOrdering",
+        "MemoryFence",
+        "ProducerConsumer",
+        "ThreadLocalVariables",
+        "Future",
+        "Promise",
+        "AsyncAwait",
+        "ParallelReduction",
+        "ParallelLoop",
+        "DataRace",
+    ],
+    "Tier12": [
+        "CommandLineArguments",
+        "EnvironmentVariables",
+        "StandardInput",
+        "StandardOutput",
+        "StandardError",
+        "FileOpen",
+        "FileRead",
+        "FileWrite",
+        "BufferedIO",
+        "BinaryIO",
+        "DirectoryOperations",
+        "FileMetadata",
+        "MemoryMappedFiles",
+        "Pipe",
+        "ProcessSpawn",
+        "ProcessExit",
+        "SignalHandling",
+        "SystemCall",
+        "SocketTCP",
+        "SocketUDP",
+        "NetworkClient",
+        "NetworkServer",
+    ],
+    "Tier13": [
+        "LinkedList",
+        "DoublyLinkedList",
+        "Stack",
+        "Queue",
+        "Deque",
+        "HashTable",
+        "HashSet",
+        "BinaryTree",
+        "BinarySearchTree",
+        "AvlTree",
+        "Heap",
+        "Trie",
+        "Graph",
+        "GraphBFS",
+        "GraphDFS",
+        "Dijkstra",
+        "UnionFind",
+        "MergeSort",
+        "QuickSort",
+        "HeapSort",
+        "RadixSort",
+        "StringSearch",
+        "KmpSearch",
+        "Regex",
+        "Serialization",
+        "Compression",
+        "Checksum",
+    ],
+    "Tier14": [
+        "ConstantFolding",
+        "ConstantPropagation",
+        "DeadCodeElimination",
+        "CommonSubexpressionElimination",
+        "StrengthReduction",
+        "LoopUnrolling",
+        "LoopVectorization",
+        "FunctionInlining",
+        "TailCallOptimization",
+        "BranchElimination",
+        "BranchlessOperations",
+        "RegisterPressure",
+        "RegisterSpilling",
+        "InstructionSelection",
+        "Devirtualization",
+        "EscapeAnalysis",
+        "BoundsCheckElimination",
+        "VectorOperations",
+        "SimdIntrinsics",
+        "InlineAssembly",
+    ],
+    "Tier15": [
+        "EmptyFunction",
+        "EmptyLoop",
+        "DeepRecursion",
+        "LargeStackFrame",
+        "LargeGlobalArray",
+        "NestedScopes",
+        "VariableShadowing",
+        "UninitializedVariable",
+        "UnusedVariable",
+        "UnreachableCode",
+        "ConstantExpression",
+        "IntegerBoundaryValues",
+        "FloatingPointBoundaryValues",
+        "DivisionByZero",
+        "SignedOverflow",
+        "InvalidShift",
+        "OutOfBoundsAccess",
+        "NullDereference",
+        "UseAfterFree",
+        "DoubleFree",
+        "UninitializedMemory",
+        "StrictAliasing",
+        "UndefinedBehavior",
+        "ImplementationDefinedBehavior",
+        "UnspecifiedBehavior",
+    ],
+}
+
+# Language-specific examples should be added here instead of creating
+# misleading substitutes for constructs a language does not possess.
+LANG_SPECIFIC_SCRIPTS = {
+    "c": ("Preprocessor", "PointerArithmetic", "ManualMemory"),
+    "cpp": ("VirtualDispatch", "Templates", "Raii", "OperatorOverloading"),
+    "rust": ("Ownership", "Borrowing", "Lifetimes", "Traits", "Monomorphization"),
+    "go": ("Interfaces", "Goroutines", "Channels", "Defer", "GarbageCollection"),
+    "swift": ("Arc", "Protocols", "Generics", "ValueTypes"),
+    "objc": ("MessageDispatch", "Selectors", "ReferenceCounting"),
+    "java": ("JvmReflection", "GarbageCollection", "BytecodeJvm"),
+    "csharp": ("ClrReflection", "Delegates", "GarbageCollection"),
+    "d": ("CompileTimeFunctions", "ScopedDestruction"),
+    "nim": ("Macros", "CompileTimeExecution"),
 }
 
 OPTIMIZATION_LEVELS = {
-    "c": ("O0", "O1", "O2", "O3"),
-    "cpp": ("O0", "O1", "O2", "O3"),
+    "c": ("O0", "O1", "O2", "O3", "Os", "Oz"),
+    "cpp": ("O0", "O1", "O2", "O3", "Os", "Oz"),
     "cs": ("O0", "O2"),  # .NET Optimize: false / true
     "d": ("O0", "O1", "O2", "O3"),
     "go": ("O0", "O2"),  # Go supports disabling optimizations or defaults
@@ -111,8 +389,8 @@ OPTIMIZATION_LEVELS = {
     "mcs": ("O0", "O2"),  # Mono mcs -optimize- / -optimize+
     "kotlin": ("O0", "O2"),  # Kotlin -Xno-optimize / default backend optimization
     "nim": ("O0", "O2"),  # Nim --opt:none / --opt:speed
-    "objc": ("O0", "O1", "O2", "O3"),
-    "rust": ("O0", "O1", "O2", "O3"),
+    "objc": ("O0", "O1", "O2", "O3", "Os", "Oz"),
+    "rust": ("O0", "O1", "O2", "O3", "Os", "Oz"),
     "swift": ("O0", "O2"),  # Swift -Onone / -O
     "v": ("O0", "O2"),  # V development / -prod modes
 }
@@ -124,6 +402,22 @@ class MissingSourceError(Exception):
 
 class BuildError(Exception):
     """Raised when a compiler command fails or an expected artifact is absent."""
+
+
+def clang_opt_flag(optimization: str) -> str:
+    """Convert a dataset optimization label to a Clang-style flag."""
+    if optimization in {"Os", "Oz"}:
+        return f"-O{optimization[-1]}"
+    return f"-O{int(optimization[1:])}"
+
+
+def rust_opt_level(optimization: str) -> str:
+    """Convert a dataset optimization label to a rustc opt-level."""
+    if optimization == "Os":
+        return "s"
+    if optimization == "Oz":
+        return "z"
+    return str(int(optimization[1:]))
 
 
 def run_command(
@@ -495,14 +789,12 @@ def build_binary(
     """
     kind = LANGUAGES[language]["kind"]
     output_bin.parent.mkdir(parents=True, exist_ok=True)
-    level = int(optimization[1:])
-
     if kind == "c":
-        command = ["clang", f"-O{level}", str(source), "-o", str(output_bin)]
+        command = ["clang", clang_opt_flag(optimization), str(source), "-o", str(output_bin)]
     elif kind == "cpp":
-        command = ["clang++", f"-O{level}", str(source), "-o", str(output_bin)]
+        command = ["clang++", clang_opt_flag(optimization), str(source), "-o", str(output_bin)]
     elif kind == "d":
-        command = ["ldc2", f"-O{level}", str(source), f"-of={output_bin}"]
+        command = ["ldc2", f"-O{int(optimization[1:])}", str(source), f"-of={output_bin}"]
     elif kind == "go":
         command = ["go", "build"]
         gcflags = "-N -l" if optimization == "O0" else None
@@ -536,7 +828,7 @@ def build_binary(
     elif kind == "objc":
         command = [
             "clang",
-            f"-O{level}",
+            clang_opt_flag(optimization),
             str(source),
             "-framework",
             "Foundation",
@@ -547,7 +839,7 @@ def build_binary(
         command = [
             "rustc",
             "-C",
-            f"opt-level={level}",
+            f"opt-level={rust_opt_level(optimization)}",
             str(source),
             "-o",
             str(output_bin),
@@ -583,17 +875,15 @@ def build_assembly(
     """
     kind = LANGUAGES[language]["kind"]
     output_asm.parent.mkdir(parents=True, exist_ok=True)
-    level = int(optimization[1:])
-
     if kind == "c":
-        command = ["clang", f"-O{level}", "-S", str(source), "-o", str(output_asm)]
+        command = ["clang", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)]
         run_command(command, cwd=stage, verbose=verbose)
     elif kind == "cpp":
-        command = ["clang++", f"-O{level}", "-S", str(source), "-o", str(output_asm)]
+        command = ["clang++", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)]
         run_command(command, cwd=stage, verbose=verbose)
     elif kind == "d":
         run_command(
-            ["ldc2", f"-O{level}", "-output-s", str(source), f"-of={output_asm}"],
+            ["ldc2", f"-O{int(optimization[1:])}", "-output-s", str(source), f"-of={output_asm}"],
             cwd=stage,
             verbose=verbose,
         )
@@ -628,7 +918,7 @@ def build_assembly(
         )
     elif kind == "objc":
         run_command(
-            ["clang", f"-O{level}", "-S", str(source), "-o", str(output_asm)],
+            ["clang", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)],
             cwd=stage,
             verbose=verbose,
         )
@@ -638,7 +928,7 @@ def build_assembly(
                 "rustc",
                 "--emit=asm",
                 "-C",
-                f"opt-level={level}",
+                f"opt-level={rust_opt_level(optimization)}",
                 str(source),
                 "-o",
                 str(output_asm),
@@ -907,6 +1197,15 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                 f"{GREEN}Finished {optimization or 'default'}: binary and "
                                 f"assembly/bytecode created.{RESET}"
                             )
+                            write_build_metadata(
+                                language,
+                                tier,
+                                script,
+                                source,
+                                optimization,
+                                output_bin,
+                                output_asm,
+                            )
                         elif binary_ok:
                             print(
                                 f"{RED}Finished {optimization or 'default'}: binary created; "
@@ -924,6 +1223,31 @@ def compile_scripts(verbose: bool, active_languages) -> None:
 
                 if language == "haskell":
                     clean_ghc_intermediates(source)
+
+
+def write_build_metadata(
+    language: str,
+    tier: str,
+    script: str,
+    source: Path,
+    optimization: str | None,
+    output_bin: Path,
+    output_asm: Path,
+) -> None:
+    """Write a small machine-readable record for a successful compilation."""
+    metadata = {
+        "language": language,
+        "tier": tier,
+        "script": script,
+        "source": str(source.relative_to(ROOT)),
+        "optimization": optimization or "default",
+        "target_architecture": platform.machine(),
+        "binary": str(output_bin.relative_to(ROOT)) if output_bin.is_file() else None,
+        "assembly": str(output_asm.relative_to(ROOT)) if output_asm.is_file() else None,
+    }
+    suffix = f"_{optimization}" if optimization else ""
+    output = output_bin.with_name(f"{script}{suffix}.build.json")
+    write_text(output, json.dumps(metadata, indent=2) + "\n")
 
 
 def clean_files():
@@ -999,9 +1323,20 @@ def main() -> int:
         default=LANGUAGES.keys(),
         help="Pick language(s) to compile scripts for",
     )
+    parser.add_argument(
+        "--list-tiers",
+        action="store_true",
+        help="List the tier catalog and language-specific feature groups",
+    )
     args = parser.parse_args()
 
     try:
+        if args.list_tiers:
+            print(json.dumps({
+                "scripts": SCRIPTS,
+                "language_specific": LANG_SPECIFIC_SCRIPTS,
+            }, indent=2))
+            return 0
         check_paths()
 
         if args.clean == "files":

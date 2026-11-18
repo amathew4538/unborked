@@ -1,10 +1,1 @@
-package datasets.java.source.Tier3;
-
-import java.util.Arrays;
-
-public class BinarySearch {
-    public static void main(String[] args) {
-        int[] values = {2, 7, 13, 42, 64, 100};
-        System.out.println("index: " + Arrays.binarySearch(values, 42));
-    }
-}
+import java.util.*; public class BinarySearch { public static void main(String[] a){int[] v={2,7,13,42,64,100};int target=a.length>0?Integer.parseInt(a[0]):42;int i=Arrays.binarySearch(v,target);System.out.println(i>=0?"found "+target+" at "+i:"not found: "+target);}}

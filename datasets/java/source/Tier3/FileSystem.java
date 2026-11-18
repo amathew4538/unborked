@@ -1,14 +1,1 @@
-package datasets.java.source.Tier3;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-public class FileSystem {
-    public static void main(String[] args) throws Exception {
-        Path path = Path.of("unborked_tier3.txt");
-        Files.writeString(path, "Hello, Dataset!");
-        String content = Files.readString(path);
-        Files.delete(path);
-        System.out.println("filesystem: " + content);
-    }
-}
+import java.nio.file.*; public class FileSystem { public static void main(String[] a)throws Exception{Path p=Path.of(a.length>0?a[0]:"unborked.conf");Files.writeString(p,"log_level=info\ntheme=dark\n");System.out.println(p+":\n"+Files.readString(p));Files.deleteIfExists(p);}}

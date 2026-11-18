@@ -3,18 +3,23 @@
 #include <string.h>
 
 int main(void) {
-    const char input[] = "Hello World!";
-    size_t length = strlen(input);
+    char text[512];
+    printf("Enter text: ");
+    fflush(stdout);
+    if (!fgets(text, sizeof(text), stdin)) text[0] = '\0';
 
-    printf("upper: ");
-    for (size_t i = 0; i < length; i++) {
-        printf("%c", toupper((unsigned char)input[i]));
+    int letters = 0, digits = 0, words = 0, in_word = 0;
+    for (char *p = text; *p; ++p) {
+        unsigned char c = (unsigned char)*p;
+        letters += isalpha(c) != 0;
+        digits += isdigit(c) != 0;
+        if (isalnum(c)) {
+            if (!in_word) ++words;
+            in_word = 1;
+        } else {
+            in_word = 0;
+        }
     }
-
-    printf("\nreverse: ");
-    for (size_t i = length; i > 0; i--) {
-        printf("%c", input[i - 1]);
-    }
-    printf("\nwords: 2\n");
+    printf("letters=%d digits=%d words=%d\n", letters, digits, words);
     return 0;
 }

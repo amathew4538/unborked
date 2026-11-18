@@ -1,16 +1,1 @@
-using System;
-using System.IO;
-using System.Linq;
-
-namespace Tier3
-{
-    class StringProcessing
-    {
-        static void Main() {
-            string input = "Hello World!";
-            Console.WriteLine("upper: " + input.ToUpperInvariant());
-            Console.WriteLine("reverse: " + new string(input.Reverse().ToArray()));
-            Console.WriteLine("words: " + input.Split().Length);
-        }
-    }
-}
+using System; using System.Linq; class StringProcessing { static void Main(string[]a){var s=a.Length>0?string.Join(" ",a):"Hello compiled world 2026";var words=s.Split((char[])null,System.StringSplitOptions.RemoveEmptyEntries);Console.WriteLine($"letters={s.Count(char.IsLetter)} digits={s.Count(char.IsDigit)} words={words.Length}");}}
