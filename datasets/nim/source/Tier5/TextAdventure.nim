@@ -1,0 +1,6 @@
+echo "room: courtyard"
+echo "action: north"
+echo "room: library"
+echo "item: key"
+echo "inventory: key"
+echo "outcome: door unlocked"
