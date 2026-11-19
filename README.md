@@ -25,3 +25,13 @@ by `LANG_SPECIFIC_SCRIPTS` in `scripts/build_dataset.py`.
 Each successful build records a `.build.json` metadata file alongside the
 binary with source, tier, script, optimization, target architecture, and
 binary/assembly artifact paths.
+
+## Additional language coverage
+
+Tier 6-15 sources are present for Clojure, D, Haskell, Kotlin, Nim,
+Objective-C, Scala, Swift, and V. Their programs demonstrate argument parsing,
+numeric transformations, ownership-safe heap-style operations, functional
+callbacks, threading concepts, I/O, sorting, and checked error handling using
+constructs native to each language. Missing toolchain support in a local
+environment is reported by `build_dataset.py`; it does not remove the source
+examples or mark them as compiled artifacts.
