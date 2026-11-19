@@ -137,7 +137,6 @@ SCRIPTS = {
         "DynamicArray",
         "Slice",
         "Pointer",
-        "PointerArithmetic",
         "NullPointer",
         "References",
         "PassByValue",
@@ -153,9 +152,6 @@ SCRIPTS = {
         "Endianness",
         "VolatileAccess",
         "MemoryAliasing",
-        "Ownership",
-        "Borrowing",
-        "Lifetimes",
     ],
     "Tier8": [
         "FunctionOverloading",
@@ -176,7 +172,6 @@ SCRIPTS = {
         "TailCall",
         "Generator",
         "Coroutine",
-        "Defer",
         "Exception",
         "ErrorPropagation",
         "Assertion",
@@ -192,16 +187,11 @@ SCRIPTS = {
         "Inheritance",
         "MultipleInheritance",
         "VirtualFunction",
-        "VirtualDispatch",
         "Interface",
         "AbstractClass",
         "MethodOverloading",
-        "OperatorOverloading",
-        "Templates",
-        "Generics",
         "GenericConstraints",
         "TemplateSpecialization",
-        "Traits",
         "ExtensionMethods",
         "Namespaces",
         "Modules",
@@ -374,7 +364,8 @@ LANG_SPECIFIC_SCRIPTS = {
     "swift": ("Arc", "Protocols", "Generics", "ValueTypes"),
     "objc": ("MessageDispatch", "Selectors", "ReferenceCounting"),
     "java": ("JvmReflection", "GarbageCollection", "BytecodeJvm"),
-    "csharp": ("ClrReflection", "Delegates", "GarbageCollection"),
+    "cs": ("ClrReflection", "Delegates", "GarbageCollection"),
+    "mcs": ("ClrReflection", "Delegates", "GarbageCollection"),
     "d": ("CompileTimeFunctions", "ScopedDestruction"),
     "nim": ("Macros", "CompileTimeExecution"),
 }
@@ -743,7 +734,9 @@ def build_dotnet(
     )
     built_dll = output_dir / f"{script}.dll"
     if not built_dll.is_file():
-        raise BuildError(f"{RED}dotnet build completed but did not create {built_dll.name}.{RESET}")
+        raise BuildError(
+            f"{RED}dotnet build completed but did not create {built_dll.name}.{RESET}"
+        )
 
     output_bin.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(built_dll, output_bin)
@@ -790,11 +783,28 @@ def build_binary(
     kind = LANGUAGES[language]["kind"]
     output_bin.parent.mkdir(parents=True, exist_ok=True)
     if kind == "c":
-        command = ["clang", clang_opt_flag(optimization), str(source), "-o", str(output_bin)]
+        command = [
+            "clang",
+            clang_opt_flag(optimization),
+            str(source),
+            "-o",
+            str(output_bin),
+        ]
     elif kind == "cpp":
-        command = ["clang++", clang_opt_flag(optimization), str(source), "-o", str(output_bin)]
+        command = [
+            "clang++",
+            clang_opt_flag(optimization),
+            str(source),
+            "-o",
+            str(output_bin),
+        ]
     elif kind == "d":
-        command = ["ldc2", f"-O{int(optimization[1:])}", str(source), f"-of={output_bin}"]
+        command = [
+            "ldc2",
+            f"-O{int(optimization[1:])}",
+            str(source),
+            f"-of={output_bin}",
+        ]
     elif kind == "go":
         command = ["go", "build"]
         gcflags = "-N -l" if optimization == "O0" else None
@@ -876,14 +886,34 @@ def build_assembly(
     kind = LANGUAGES[language]["kind"]
     output_asm.parent.mkdir(parents=True, exist_ok=True)
     if kind == "c":
-        command = ["clang", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)]
+        command = [
+            "clang",
+            clang_opt_flag(optimization),
+            "-S",
+            str(source),
+            "-o",
+            str(output_asm),
+        ]
         run_command(command, cwd=stage, verbose=verbose)
     elif kind == "cpp":
-        command = ["clang++", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)]
+        command = [
+            "clang++",
+            clang_opt_flag(optimization),
+            "-S",
+            str(source),
+            "-o",
+            str(output_asm),
+        ]
         run_command(command, cwd=stage, verbose=verbose)
     elif kind == "d":
         run_command(
-            ["ldc2", f"-O{int(optimization[1:])}", "-output-s", str(source), f"-of={output_asm}"],
+            [
+                "ldc2",
+                f"-O{int(optimization[1:])}",
+                "-output-s",
+                str(source),
+                f"-of={output_asm}",
+            ],
             cwd=stage,
             verbose=verbose,
         )
@@ -918,7 +948,14 @@ def build_assembly(
         )
     elif kind == "objc":
         run_command(
-            ["clang", clang_opt_flag(optimization), "-S", str(source), "-o", str(output_asm)],
+            [
+                "clang",
+                clang_opt_flag(optimization),
+                "-S",
+                str(source),
+                "-o",
+                str(output_asm),
+            ],
             cwd=stage,
             verbose=verbose,
         )
@@ -1024,7 +1061,12 @@ def compile_scripts(verbose: bool, active_languages) -> None:
         target_languages = {k: v for k, v in LANGUAGES.items() if k in allowed}.items()
 
     for language, config in target_languages:
-        for tier, scripts in SCRIPTS.items():
+        for tier, base_scripts in SCRIPTS.items():
+            scripts = list(base_scripts)
+
+            if language in LANG_SPECIFIC_SCRIPTS:
+                scripts.extend(LANG_SPECIFIC_SCRIPTS[language])
+
             for script in scripts:
                 if language == "go":
                     source = (
@@ -1152,7 +1194,9 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                     optimization,
                                 )
                                 binary_ok = True
-                                print(f"{GREEN}binary built: {output_bin.relative_to(ROOT)}{RESET}")
+                                print(
+                                    f"{GREEN}binary built: {output_bin.relative_to(ROOT)}{RESET}"
+                                )
                         except BuildError as exc:
                             binary_ok = output_bin.is_file()
                             assembly_ok = (
@@ -1332,10 +1376,15 @@ def main() -> int:
 
     try:
         if args.list_tiers:
-            print(json.dumps({
-                "scripts": SCRIPTS,
-                "language_specific": LANG_SPECIFIC_SCRIPTS,
-            }, indent=2))
+            print(
+                json.dumps(
+                    {
+                        "scripts": SCRIPTS,
+                        "language_specific": LANG_SPECIFIC_SCRIPTS,
+                    },
+                    indent=2,
+                )
+            )
             return 0
         check_paths()
 
