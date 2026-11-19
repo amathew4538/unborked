@@ -1,15 +1,1 @@
-using System;
-using System.IO;
-using System.Linq;
-
-namespace Tier4
-{
-    class TicTacToe
-    {
-        static void Main() {
-            char[,] board = {{'X', 'O', 'X'}, {'O', 'X', 'O'}, {'X', 'O', 'X'}};
-            for (int row = 0; row < 3; row++) Console.WriteLine($"{board[row, 0]} {board[row, 1]} {board[row, 2]}");
-            Console.WriteLine("winner: X");
-        }
-    }
-}
+using System; class TicTacToe { static void Main(){char[]b=new char[9];Array.Fill(b,' ');for(int t=0;t<9;t++){char p=t%2==0?'X':'O';int m=p=='X'?4:Array.FindIndex(b,x=>x==' ');if(m<0||b[m]!=' ')continue;b[m]=p;for(int r=0;r<3;r++)Console.WriteLine($"{b[r*3]}|{b[r*3+1]}|{b[r*3+2]}");bool w=false;for(int i=0;i<3;i++)w|=b[i*3]!=' '&&b[i*3]==b[i*3+1]&&b[i*3]==b[i*3+2];w|=b[0]!=' '&&b[0]==b[4]&&b[0]==b[8];w|=b[2]!=' '&&b[2]==b[4]&&b[2]==b[6];if(w){Console.WriteLine("winner: "+p);return;}}Console.WriteLine("draw");}}

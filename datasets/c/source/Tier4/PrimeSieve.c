@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 int main(void) {
-    int limit = 30;
-    unsigned char prime[31];
+    int limit;
+    printf("Find primes through: ");
+    fflush(stdout);
+    if (scanf("%d", &limit) != 1 || limit < 2) limit = 30;
+    unsigned char *prime = malloc((size_t)limit + 1);
+    if (!prime) return 1;
     memset(prime, 1, sizeof(prime));
     prime[0] = prime[1] = 0;
 
@@ -22,5 +27,6 @@ int main(void) {
         }
     }
     printf("\n");
+    free(prime);
     return 0;
 }

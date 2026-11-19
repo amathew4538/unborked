@@ -1,6 +1,2 @@
-fn main() {
-    let input = "Hello World!";
-    println!("upper: {}", input.to_uppercase());
-    println!("reverse: {}", input.chars().rev().collect::<String>());
-    println!("words: {}", input.split_whitespace().count());
-}
+use std::io::{self, Read};
+fn main() { let mut s=String::new(); let _=io::stdin().read_to_string(&mut s); let words=s.split_whitespace().count(); let letters=s.chars().filter(|c|c.is_alphabetic()).count(); let digits=s.chars().filter(|c|c.is_numeric()).count(); println!("letters={letters} digits={digits} words={words}"); }

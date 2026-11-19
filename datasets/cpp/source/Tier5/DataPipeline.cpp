@@ -1,18 +1,21 @@
-#include <cstdio>
+#include <stdio.h>
 
 int main(void) {
-    int input[] = {1, 2, 3, 4, 5, 6};
-    int sum = 0;
-    int count = 0;
-
-    for (int i = 0; i < 6; i++) {
-        if (input[i] % 2 == 0) {
-            sum += input[i] * input[i];
-            count++;
+    char line[256];
+    int valid = 0, invalid = 0, total = 0;
+    puts("Enter CSV rows as name,amount (blank line to finish):");
+    while (fgets(line, sizeof(line), stdin) && line[0] != '\n') {
+        char name[128];
+        int amount;
+        if (sscanf(line, " %127[^,],%d", name, &amount) == 2) {
+            ++valid;
+            total += amount;
+            printf("accepted %s: %d\n", name, amount);
+        } else {
+            ++invalid;
+            printf("rejected: %s", line);
         }
     }
-
-    printf("processed: %d\n", count);
-    printf("squares sum: %d\n", sum);
+    printf("summary valid=%d invalid=%d total=%d\n", valid, invalid, total);
     return 0;
 }

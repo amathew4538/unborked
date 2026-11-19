@@ -1,0 +1,2 @@
+#include <stdio.h>
+int add(int a,int b){return a+b;}int mul(int a,int b){return a*b;}int main(void){int (*op)(int,int)=add;printf("add=%d\n",op(7,5));op=mul;printf("mul=%d\n",op(7,5));}

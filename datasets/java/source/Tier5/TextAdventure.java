@@ -1,12 +1,1 @@
-package datasets.java.source.Tier5;
-
-public class TextAdventure {
-    public static void main(String[] args) {
-        System.out.println("room: courtyard");
-        System.out.println("action: north");
-        System.out.println("room: library");
-        System.out.println("item: key");
-        System.out.println("inventory: key");
-        System.out.println("outcome: door unlocked");
-    }
-}
+import java.util.*; public class TextAdventure { public static void main(String[] a){Scanner in=new Scanner(System.in);String room="courtyard";boolean key=false;System.out.println("Commands: north,take,unlock,quit");while(in.hasNextLine()){String c=in.nextLine().trim();if(c.equals("north")&&room.equals("courtyard"))room="library";else if(c.equals("take")&&room.equals("library")){key=true;System.out.println("Taken: brass key");}else if(c.equals("unlock")&&key){System.out.println("You escaped!");return;}else if(c.equals("quit"))return;System.out.println("room: "+room);}}}

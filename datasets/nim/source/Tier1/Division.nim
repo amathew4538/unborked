@@ -1,4 +1,4 @@
-proc divide(a, b: int): int = a / b
+proc divide(a, b: int): float = a.float / b.float
 
 echo divide(0, 1)
 echo divide(7, 13)

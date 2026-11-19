@@ -1,9 +1,2 @@
-use std::fs;
-
-fn main() {
-    let path = "unborked_tier3.txt";
-    fs::write(path, "Hello, Dataset!").expect("write failed");
-    let content = fs::read_to_string(path).expect("read failed");
-    println!("filesystem: {}", content);
-    fs::remove_file(path).expect("remove failed");
-}
+use std::{env, fs};
+fn main() { let path = env::args().nth(1).unwrap_or_else(|| "unborked.conf".into()); fs::write(&path, "log_level=info\ntheme=dark\n").unwrap(); println!("{}:\n{}", path, fs::read_to_string(&path).unwrap()); let _ = fs::remove_file(path); }

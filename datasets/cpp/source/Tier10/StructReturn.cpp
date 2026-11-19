@@ -1,0 +1,9 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstdint>
+#include <cmath>
+#include <cstring>
+#include <cstddef>
+using std::printf; using std::puts;
+
+typedef struct{int low;int high;}Range;Range make_range(int a,int b){Range r={a,b};return r;}int main(void){Range r=make_range(10,20);printf("range=%d..%d\n",r.low,r.high);}

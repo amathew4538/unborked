@@ -1,17 +1,1 @@
-package datasets.java.source.Tier4;
-
-public class PrimeSieve {
-    public static void main(String[] args) {
-        int limit = 30;
-        boolean[] prime = new boolean[limit + 1];
-        java.util.Arrays.fill(prime, 2, limit + 1, true);
-        for (int i = 2; i * i <= limit; i++) {
-            if (prime[i]) {
-                for (int multiple = i * i; multiple <= limit; multiple += i) prime[multiple] = false;
-            }
-        }
-        System.out.print("primes:");
-        for (int i = 2; i <= limit; i++) if (prime[i]) System.out.print(" " + i);
-        System.out.println();
-    }
-}
+public class PrimeSieve { public static void main(String[] a){int n=a.length>0?Integer.parseInt(a[0]):30;boolean[] p=new boolean[n+1];java.util.Arrays.fill(p,true);p[0]=p[1]=false;for(int i=2;i*i<=n;i++)if(p[i])for(int j=i*i;j<=n;j+=i)p[j]=false;System.out.print("primes:");for(int i=2;i<=n;i++)if(p[i])System.out.print(" "+i);System.out.println();}}

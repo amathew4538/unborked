@@ -1,3 +1,5 @@
+import std/[strutils]
+
 let input = "Hello World!"
 echo input.toUpperAscii()
 echo input.reversed

@@ -1,14 +1,1 @@
-using System;
-using System.IO;
-using System.Linq;
-
-namespace Tier3
-{
-    class BinarySearch
-    {
-        static void Main() {
-            int[] values = {2, 7, 13, 42, 64, 100};
-            Console.WriteLine("index: " + Array.BinarySearch(values, 42));
-        }
-    }
-}
+using System; class BinarySearch { static void Main(string[]a){int[]v={2,7,13,42,64,100};int t=a.Length>0?int.Parse(a[0]):42;int i=Array.BinarySearch(v,t);Console.WriteLine(i>=0?$"found {t} at {i}":$"not found: {t}");}}

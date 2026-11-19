@@ -1,18 +1,1 @@
-using System;
-using System.IO;
-using System.Linq;
-
-namespace Tier5
-{
-    class TextAdventure
-    {
-        static void Main() {
-            Console.WriteLine("room: courtyard");
-            Console.WriteLine("action: north");
-            Console.WriteLine("room: library");
-            Console.WriteLine("item: key");
-            Console.WriteLine("inventory: key");
-            Console.WriteLine("outcome: door unlocked");
-        }
-    }
-}
+using System; class TextAdventure { static void Main(){string room="courtyard";bool key=false;Console.WriteLine("Commands: north,take,unlock,quit");while(true){var c=(Console.ReadLine()??"").Trim();if(c=="north"&&room=="courtyard")room="library";else if(c=="take"&&room=="library"){key=true;Console.WriteLine("Taken: brass key");}else if(c=="unlock"&&key){Console.WriteLine("You escaped!");return;}else if(c=="quit")return;Console.WriteLine("room: "+room);}}}

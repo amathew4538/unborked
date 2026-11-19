@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <stdio.h>
 
 int binary_search(const int *values, int length, int target) {
     int low = 0;
@@ -20,6 +20,10 @@ int binary_search(const int *values, int length, int target) {
 
 int main(void) {
     int values[] = {2, 7, 13, 42, 64, 100};
-    printf("index: %d\n", binary_search(values, 6, 42));
+    int target;
+    printf("Lookup in sorted inventory [2 7 13 42 64 100]: ");
+    if (scanf("%d", &target) != 1) target = 42;
+    int index = binary_search(values, 6, target);
+    printf(index >= 0 ? "found: %d at slot %d\n" : "not found: %d\n", target, index);
     return 0;
 }
