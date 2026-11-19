@@ -35,3 +35,11 @@ callbacks, threading concepts, I/O, sorting, and checked error handling using
 constructs native to each language. Missing toolchain support in a local
 environment is reported by `build_dataset.py`; it does not remove the source
 examples or mark them as compiled artifacts.
+
+## Language-specific tier
+
+Language-only features are kept outside `SCRIPTS` in `LANG_SPECIFIC_SCRIPTS`.
+They are compiled from `datasets/<language>/source/LangSpecificTier/` and
+retained in matching binary and assembly directories. This separation keeps
+the cross-language catalog from implying that unsupported constructs exist in
+every language.

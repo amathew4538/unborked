@@ -1,0 +1,1 @@
+public class BytecodeJvm {public static int parseOrDefault(String arg){try{return Integer.parseInt(arg);}catch(Exception e){return 42;}}public static void main(String[]args){int value=args.length>0?parseOrDefault(args[0]):42;System.out.println("feature=BytecodeJvm value="+value);}}

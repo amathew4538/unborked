@@ -370,6 +370,8 @@ LANG_SPECIFIC_SCRIPTS = {
     "nim": ("Macros", "CompileTimeExecution"),
 }
 
+LANG_SPECIFIC_TIER = "LangSpecificTier"
+
 OPTIMIZATION_LEVELS = {
     "c": ("O0", "O1", "O2", "O3", "Os", "Oz"),
     "cpp": ("O0", "O1", "O2", "O3", "Os", "Oz"),
@@ -1046,6 +1048,103 @@ def build_assembly(
         )
 
 
+def compile_language_specific(
+    verbose: bool,
+    language: str,
+    config: dict,
+) -> None:
+    """Compile dedicated language-specific examples outside the global tier catalog."""
+    kind = config["kind"]
+    scripts = LANG_SPECIFIC_SCRIPTS.get(language, ())
+    if not scripts:
+        return
+
+    bin_dir = DATASETS / language / "bin" / LANG_SPECIFIC_TIER
+    asm_dir = DATASETS / language / "asm" / LANG_SPECIFIC_TIER
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    asm_dir.mkdir(parents=True, exist_ok=True)
+
+    levels: tuple[str | None, ...]
+    if language == "kotlin":
+        levels = OPTIMIZATION_LEVELS[language]
+    elif kind.startswith("jvm_"):
+        levels = (None,)
+    else:
+        levels = OPTIMIZATION_LEVELS.get(language, (None,))
+
+    for script in scripts:
+        source_dir = DATASETS / language / "source" / LANG_SPECIFIC_TIER
+        if language == "go":
+            source = source_dir / script / f"{script}.{config['ext']}"
+        else:
+            source = source_dir / f"{script}.{config['ext']}"
+        if not source.is_file():
+            print(
+                f"{RED}Skipping missing language-specific source: "
+                f"{source.relative_to(ROOT)}{RESET}"
+            )
+            continue
+
+        print(f"Building {language}/{LANG_SPECIFIC_TIER}/{script}")
+        for optimization in levels:
+            suffix = f"_{optimization}" if optimization else ""
+            output_bin = bin_dir / f"{script}{suffix}{config['bin_ext']}"
+            output_asm = asm_dir
+            if not kind.startswith("jvm_"):
+                output_asm = asm_dir / f"{script}{suffix}{config['asm_ext']}"
+
+            with tempfile.TemporaryDirectory(
+                prefix=f".build_{language}_{script}_{optimization or 'default'}_",
+                dir=ROOT,
+            ) as temp_name:
+                stage = Path(temp_name)
+                binary_ok = False
+                assembly_ok = False
+                try:
+                    if kind.startswith("jvm_"):
+                        build_jvm(
+                            language, source, output_bin, output_asm,
+                            stage, verbose, optimization,
+                        )
+                        binary_ok = assembly_ok = True
+                    elif kind == "dotnet":
+                        build_dotnet(
+                            source, script, output_bin, output_asm,
+                            stage, verbose, optimization or "O0",
+                        )
+                        binary_ok = assembly_ok = output_asm.is_file()
+                    elif kind == "mcs":
+                        build_mcs(
+                            source, script, output_bin, output_asm,
+                            stage, verbose, optimization or "O0",
+                        )
+                        binary_ok = assembly_ok = output_asm.is_file()
+                    else:
+                        assert optimization is not None
+                        build_binary(
+                            language, source, output_bin,
+                            stage, verbose, optimization,
+                        )
+                        binary_ok = True
+                        build_assembly(
+                            language, source, output_asm,
+                            stage, verbose, optimization,
+                        )
+                        assembly_ok = True
+                except BuildError as exc:
+                    print(
+                        f"{RED}Language-specific build failed for "
+                        f"{language}/{script}/{optimization or 'default'}:\n"
+                        f"{exc}{RESET}"
+                    )
+
+                if binary_ok and assembly_ok:
+                    write_build_metadata(
+                        language, LANG_SPECIFIC_TIER, script, source,
+                        optimization, output_bin, output_asm,
+                    )
+
+
 def compile_scripts(verbose: bool, active_languages) -> None:
     """Compile all scripts"""
     clean_root_artifacts()
@@ -1063,9 +1162,6 @@ def compile_scripts(verbose: bool, active_languages) -> None:
     for language, config in target_languages:
         for tier, base_scripts in SCRIPTS.items():
             scripts = list(base_scripts)
-
-            if language in LANG_SPECIFIC_SCRIPTS:
-                scripts.extend(LANG_SPECIFIC_SCRIPTS[language])
 
             for script in scripts:
                 if language == "go":
@@ -1268,6 +1364,7 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                 if language == "haskell":
                     clean_ghc_intermediates(source)
 
+        compile_language_specific(verbose, language, config)
 
 def write_build_metadata(
     language: str,
@@ -1337,6 +1434,19 @@ def check_paths() -> None:
 
             (DATASETS / language / "asm" / tier).mkdir(parents=True, exist_ok=True)
             (DATASETS / language / "bin" / tier).mkdir(parents=True, exist_ok=True)
+
+        if LANG_SPECIFIC_SCRIPTS.get(language):
+            lang_specific_source = source_root / LANG_SPECIFIC_TIER
+            if not lang_specific_source.is_dir():
+                raise MissingSourceError(
+                    f"Missing {LANG_SPECIFIC_TIER} source directory: {lang_specific_source}"
+                )
+            (DATASETS / language / "asm" / LANG_SPECIFIC_TIER).mkdir(
+                parents=True, exist_ok=True
+            )
+            (DATASETS / language / "bin" / LANG_SPECIFIC_TIER).mkdir(
+                parents=True, exist_ok=True
+            )
 
 
 def main() -> int:
