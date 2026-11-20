@@ -8,6 +8,7 @@ requested final artifacts are retained under datasets/<language>/{bin,asm}.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import platform
 import re
@@ -1103,32 +1104,55 @@ def compile_language_specific(
                 try:
                     if kind.startswith("jvm_"):
                         build_jvm(
-                            language, source, output_bin, output_asm,
-                            stage, verbose, optimization,
+                            language,
+                            source,
+                            output_bin,
+                            output_asm,
+                            stage,
+                            verbose,
+                            optimization,
                         )
                         binary_ok = assembly_ok = True
                     elif kind == "dotnet":
                         build_dotnet(
-                            source, script, output_bin, output_asm,
-                            stage, verbose, optimization or "O0",
+                            source,
+                            script,
+                            output_bin,
+                            output_asm,
+                            stage,
+                            verbose,
+                            optimization or "O0",
                         )
                         binary_ok = assembly_ok = output_asm.is_file()
                     elif kind == "mcs":
                         build_mcs(
-                            source, script, output_bin, output_asm,
-                            stage, verbose, optimization or "O0",
+                            source,
+                            script,
+                            output_bin,
+                            output_asm,
+                            stage,
+                            verbose,
+                            optimization or "O0",
                         )
                         binary_ok = assembly_ok = output_asm.is_file()
                     else:
                         assert optimization is not None
                         build_binary(
-                            language, source, output_bin,
-                            stage, verbose, optimization,
+                            language,
+                            source,
+                            output_bin,
+                            stage,
+                            verbose,
+                            optimization,
                         )
                         binary_ok = True
                         build_assembly(
-                            language, source, output_asm,
-                            stage, verbose, optimization,
+                            language,
+                            source,
+                            output_asm,
+                            stage,
+                            verbose,
+                            optimization,
                         )
                         assembly_ok = True
                 except BuildError as exc:
@@ -1140,8 +1164,13 @@ def compile_language_specific(
 
                 if binary_ok and assembly_ok:
                     write_build_metadata(
-                        language, LANG_SPECIFIC_TIER, script, source,
-                        optimization, output_bin, output_asm,
+                        language,
+                        LANG_SPECIFIC_TIER,
+                        script,
+                        source,
+                        optimization,
+                        output_bin,
+                        output_asm,
                     )
 
 
@@ -1366,6 +1395,7 @@ def compile_scripts(verbose: bool, active_languages) -> None:
 
         compile_language_specific(verbose, language, config)
 
+
 def write_build_metadata(
     language: str,
     tier: str,
@@ -1397,6 +1427,10 @@ def clean_files():
     """
 
     print("\n===== Cleaning Files =====\n")
+
+    csv_file = ROOT / "dataset_file_counts.csv"
+    if csv_file.is_file():
+        csv_file.unlink()
 
     for language in LANGUAGES:
         print(f"\n=== Cleaning files in {language} ===\n")
@@ -1449,6 +1483,66 @@ def check_paths() -> None:
             )
 
 
+def export_csv(languages) -> None:
+    """Calculate expected compiled files per language and write to a CSV in ROOT."""
+    csv_path = ROOT / "dataset_file_counts.csv"
+    base_script_count = sum(len(scripts) for scripts in SCRIPTS.values())
+
+    rows = []
+    grand_total = 0
+
+    for lang in languages:
+        lang_specific_count = len(LANG_SPECIFIC_SCRIPTS.get(lang, ()))
+        total_scripts = base_script_count + lang_specific_count
+
+        opt_levels = OPTIMIZATION_LEVELS.get(lang, ("default",))
+        num_opts = len(opt_levels)
+
+        files_per_opt = 2
+        total_files = total_scripts * num_opts * files_per_opt
+        grand_total += total_files
+
+        rows.append(
+            {
+                "language": lang,
+                "base_scripts": base_script_count,
+                "lang_specific_scripts": lang_specific_count,
+                "total_scripts": total_scripts,
+                "optimization_levels": num_opts,
+                "files_per_opt": files_per_opt,
+                "total_files": total_files,
+            }
+        )
+
+    rows.append(
+        {
+            "language": "TOTAL",
+            "base_scripts": "",
+            "lang_specific_scripts": "",
+            "total_scripts": "",
+            "optimization_levels": "",
+            "files_per_opt": "",
+            "total_files": grand_total,
+        }
+    )
+
+    fieldnames = [
+        "language",
+        "base_scripts",
+        "lang_specific_scripts",
+        "total_scripts",
+        "optimization_levels",
+        "files_per_opt",
+        "total_files",
+    ]
+
+    with csv_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print(f"{GREEN}Saved file count summary to {csv_path}{RESET}")
+
 def main() -> int:
     """
     Main function
@@ -1482,6 +1576,11 @@ def main() -> int:
         action="store_true",
         help="List the tier catalog and language-specific feature groups",
     )
+    parser.add_argument(
+        "--csv",
+        action="store_true",
+        help="Generate a CSV report of the dataset",
+    )
     args = parser.parse_args()
 
     try:
@@ -1505,6 +1604,9 @@ def main() -> int:
             compile_scripts(args.verbose, args.languages)
         else:
             compile_scripts(args.verbose, args.languages)
+
+        if args.csv:
+            export_csv(args.languages)
 
     except MissingSourceError as e:
         print(str(e))
