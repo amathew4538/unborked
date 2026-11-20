@@ -1,1 +1,15 @@
-trait Render{fn render(&self)->String;}struct Invoice{total:i32}impl Render for Invoice{fn render(&self)->String{format!("total=${}",self.total)}}fn main(){let document:Box<dyn Render>=Box::new(Invoice{total:42});println!("{}",document.render());}
+trait Render {
+    fn render(&self) -> String;
+}
+struct Invoice {
+    total: i32,
+}
+impl Render for Invoice {
+    fn render(&self) -> String {
+        format!("total=${}", self.total)
+    }
+}
+fn main() {
+    let document: Box<dyn Render> = Box::new(Invoice { total: 42 });
+    println!("{}", document.render());
+}

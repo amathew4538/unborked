@@ -4,7 +4,7 @@ public class Division {
     static int divide(int a,int b) {
         return a / b;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(divide(0,1));
         System.out.println(divide(7,13));

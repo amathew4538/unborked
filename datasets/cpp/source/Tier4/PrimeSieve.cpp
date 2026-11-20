@@ -7,9 +7,9 @@ int main(void) {
     printf("Find primes through: ");
     fflush(stdout);
     if (scanf("%d", &limit) != 1 || limit < 2) limit = 30;
-    unsigned char *prime = malloc((size_t)limit + 1);
+    unsigned char *prime = static_cast<unsigned char *>(malloc((size_t)limit + 1));
     if (!prime) return 1;
-    memset(prime, 1, sizeof(prime));
+    memset(prime, 1, (size_t)limit + 1);
     prime[0] = prime[1] = 0;
 
     for (int i = 2; i * i <= limit; i++) {

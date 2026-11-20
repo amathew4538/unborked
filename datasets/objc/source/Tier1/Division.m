@@ -12,6 +12,6 @@ int main() {
         NSLog(@"%d", divide(64,8));
         NSLog(@"%d", divide(-42,-1));
     }
-    
+
     return 0;
 }

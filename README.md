@@ -26,6 +26,17 @@ Each successful build records a `.build.json` metadata file alongside the
 binary with source, tier, script, optimization, target architecture, and
 binary/assembly artifact paths.
 
+## Scaling and assembly size
+
+Use `python3 scripts/augment_dataset.py --copies 4` to create deterministic,
+comment-only source variants. Variants preserve behavior and are discovered
+automatically by `build_dataset.py`. Remove generated
+variants with `python3 scripts/augment_dataset.py --clean`.
+
+Use `python3 scripts/build_dataset.py --max-asm-mb 64` to discard oversized
+assembly artifacts. This protects disk usage while preserving binaries and
+metadata; no lossy compression is applied to Go assembly.
+
 ## Additional language coverage
 
 Tier 6-15 sources are present for Clojure, D, Haskell, Kotlin, Nim,

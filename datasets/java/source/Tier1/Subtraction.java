@@ -4,7 +4,7 @@ public class Subtraction {
     static int subtract(int a,int b) {
         return a - b;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(subtract(0,1));
         System.out.println(subtract(7,13));
