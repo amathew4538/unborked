@@ -12,7 +12,7 @@ public class Function {
     static int parameter_function(int a) {
         return a + 1;
     }
-    
+
     public static void main(String[] args) {
         void_function();
         System.out.println(return_function());

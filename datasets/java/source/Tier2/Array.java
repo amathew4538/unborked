@@ -1,7 +1,7 @@
 package datasets.java.source.Tier1;
 
 public class Array {
-    
+
     public static void main(String[] args) {
         int[] values = {2,4,6,8,10};
         int sum = 0;
@@ -10,7 +10,7 @@ public class Array {
             System.out.println(value);
             sum += value;
         }
-        
+
         System.out.println(sum);
     }
 }

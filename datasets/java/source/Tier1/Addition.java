@@ -4,7 +4,7 @@ public class Addition {
     static int add(int a,int b) {
         return a + b;
     }
-    
+
     public static void main(String[] args) {
         System.out.println(add(0,1));
         System.out.println(add(7,13));

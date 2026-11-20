@@ -1,9 +1,9 @@
 package datasets.kotlin.source.Tier1
 
-fun power(a: Int, b: Int): Int { 
-    var result=1; 
+fun power(a: Int, b: Int): Int {
+    var result=1;
     repeat(b) { result*=a };
-    return result 
+    return result
 }
 
 fun main() {

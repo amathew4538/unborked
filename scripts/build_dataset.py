@@ -1174,7 +1174,11 @@ def compile_language_specific(
                     )
 
 
-def compile_scripts(verbose: bool, active_languages) -> None:
+def compile_scripts(
+    verbose: bool,
+    active_languages,
+    max_asm_mb: int | None = None,
+) -> None:
     """Compile all scripts"""
     clean_root_artifacts()
 
@@ -1191,6 +1195,23 @@ def compile_scripts(verbose: bool, active_languages) -> None:
     for language, config in target_languages:
         for tier, base_scripts in SCRIPTS.items():
             scripts = list(base_scripts)
+            tier_source = DATASETS / language / "source" / tier
+            if tier_source.is_dir():
+                if language == "go":
+                    augmented_dirs = sorted(
+                        directory.name
+                        for directory in tier_source.iterdir()
+                        if directory.is_dir() and "_A" in directory.name
+                    )
+                else:
+                    augmented_dirs = sorted(
+                        path.stem
+                        for path in tier_source.iterdir()
+                        if path.is_file()
+                        and "_A" in path.stem
+                        and path.suffix == f".{config['ext']}"
+                    )
+                scripts.extend(name for name in augmented_dirs if name not in scripts)
 
             for script in scripts:
                 if language == "go":
@@ -1360,6 +1381,22 @@ def compile_scripts(verbose: bool, active_languages) -> None:
                                     f"{RED}Assembly failed for {language}/{script}/"
                                     f"{optimization}:\n{exc}{RESET}"
                                 )
+
+                        if (
+                            max_asm_mb is not None
+                            and assembly_ok
+                            and not kind.startswith("jvm_")
+                            and output_asm.is_file()
+                        ):
+                            size_mb = output_asm.stat().st_size / (1024 * 1024)
+                            if size_mb > max_asm_mb:
+                                print(
+                                    f"{RED}Discarding oversized assembly "
+                                    f"{output_asm.relative_to(ROOT)} "
+                                    f"({size_mb:.1f} MiB > {max_asm_mb} MiB){RESET}"
+                                )
+                                output_asm.unlink()
+                                assembly_ok = False
 
                         if binary_ok and assembly_ok:
                             print(
@@ -1581,6 +1618,12 @@ def main() -> int:
         action="store_true",
         help="Generate a CSV report of the dataset",
     )
+    parser.add_argument(
+        "--max-asm-mb",
+        type=int,
+        default=None,
+        help="Discard assembly artifacts larger than this size (MiB)",
+    )
     args = parser.parse_args()
 
     try:
@@ -1601,9 +1644,9 @@ def main() -> int:
             clean_files()
         elif args.clean == "all":
             clean_files()
-            compile_scripts(args.verbose, args.languages)
+            compile_scripts(args.verbose, args.languages, args.max_asm_mb)
         else:
-            compile_scripts(args.verbose, args.languages)
+            compile_scripts(args.verbose, args.languages, args.max_asm_mb)
 
         if args.csv:
             export_csv(args.languages)

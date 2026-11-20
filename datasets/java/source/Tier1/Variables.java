@@ -1,7 +1,7 @@
 package datasets.java.source.Tier1;
 
 public class Variables {
-    
+
     public static void main(String[] args) {
         int integerVar = 13;
         float floatVar = 3.14f;

@@ -10,7 +10,8 @@ int main(void) {
     fflush(stdout);
     if (fgets(path, sizeof(path), stdin) == NULL) path[0] = '\0';
     if (path[0] == '\n' || path[0] == '\0') {
-        fputs("unborked.conf", path);
+        strncpy(path, "unborked.conf", sizeof(path));
+        path[sizeof(path) - 1] = '\0';
     } else {
         size_t length = strlen(path);
         if (length > 0 && path[length - 1] == '\n') path[length - 1] = '\0';
