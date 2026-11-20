@@ -4,11 +4,11 @@ Handles pretraining for lang detection from asm and bin
 Current Parameter Count: 469,256
 """
 
-from pathlib import Path
 import random
+from pathlib import Path
 
-from build_dataset import SCRIPTS
 import torch
+from build_dataset import SCRIPTS
 from torch.utils.data import ConcatDataset, Dataset
 from transformers import ModernBertConfig, ModernBertForMaskedLM
 
@@ -61,15 +61,12 @@ class BinaryByteDataset(Dataset):
         except OSError as e:
             print(f"Error reading {file_path}: {e}")
 
-        # Reserve 2 slots for [CLS] and [SEP]
         chunk_limit = self.max_len - 2
 
-        # Randomly sample a window if the binary/asm file is larger than max_len
         if len(content) > chunk_limit:
             start = random.randint(0, len(content) - chunk_limit)
             content = content[start : start + chunk_limit]
 
-        # Convert raw bytes (0-255) to list of ints and wrap with [CLS] and [SEP]
         input_ids = [CLS_ID] + list(content) + [SEP_ID]
 
         return {"input_ids": torch.tensor(input_ids, dtype=torch.long)}
