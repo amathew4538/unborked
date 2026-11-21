@@ -1,9 +1,14 @@
 using System;
-public class Graph
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=Graph args=" + args.Length + " sum=" + sum);
+
+public class Graph {
+    public static long Feature(long seed, long value) {
+        long result = (6%64)*(6%64);
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 6;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=Graph tier=13 seed=6 result=" + Feature(6, value));
     }
 }

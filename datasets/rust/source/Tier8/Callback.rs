@@ -1,7 +1,9 @@
-fn apply<F: Fn(i32) -> i32>(f: F, x: i32) -> i32 {
-    f(x)
+fn feature_49(value: i64) -> i64 {
+    let result = 49+((49%5)*7);
+    result + value
 }
+
 fn main() {
-    let result = apply(|x| x * x + 3, 7);
-    println!("feature=Callback result={}", result);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(49);
+    println!("feature=Callback tier=8 seed=49 result={}", feature_49(value));
 }

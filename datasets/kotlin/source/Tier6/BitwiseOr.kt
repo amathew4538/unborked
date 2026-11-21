@@ -1,8 +1,11 @@
 package datasets.kotlin.source.Tier6
 
-fun applyFeature(value: Int): Int = value * value + 3
+fun feature(seed: Long, value: Long): Long {
+    val result = seed * 17 + 3L
+    return result + seed + value
+}
 
 fun main(args: Array<String>) {
-    val value = args.firstOrNull()?.toIntOrNull() ?: 42
-    println("feature=BitwiseOr value=$value result=${applyFeature(value)}")
+    val value = args.firstOrNull()?.toLongOrNull() ?: 24L
+    println("feature=BitwiseOr tier=6 seed=24 result=${feature(24L, value)}")
 }

@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 66
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 66
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=RegisterPressure value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=RegisterPressure tier=14 seed=66 result=' + feature(66, value).str())
 }

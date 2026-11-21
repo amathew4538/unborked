@@ -1,9 +1,9 @@
 (ns Tier8.VariadicFunction
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 893 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "VariadicFunction" value)))
+  (let [value (try (Long/parseLong (or (first args) "93")) (catch Exception _ 93))]
+    (println (str "feature=VariadicFunction tier=8 seed=93 result=" (feature value)))))

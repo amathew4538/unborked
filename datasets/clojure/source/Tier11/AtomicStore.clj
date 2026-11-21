@@ -1,9 +1,9 @@
 (ns Tier11.AtomicStore
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1157 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "AtomicStore" value)))
+  (let [value (try (Long/parseLong (or (first args) "57")) (catch Exception _ 57))]
+    (println (str "feature=AtomicStore tier=11 seed=57 result=" (feature value)))))

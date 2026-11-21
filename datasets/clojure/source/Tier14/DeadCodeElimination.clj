@@ -1,9 +1,9 @@
 (ns Tier14.DeadCodeElimination
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1432 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "DeadCodeElimination" value)))
+  (let [value (try (Long/parseLong (or (first args) "32")) (catch Exception _ 32))]
+    (println (str "feature=DeadCodeElimination tier=14 seed=32 result=" (feature value)))))

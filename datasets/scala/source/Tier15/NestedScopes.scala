@@ -1,6 +1,6 @@
 @main def main(args: String*): Unit = {
-  val value =
-    args.headOption.flatMap(v => scala.util.Try(v.toInt).toOption).getOrElse(42)
-  val result = value * value + 3
-  println(s"feature=NestedScopes value=$value result=$result")
+  val seed = 29L
+  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
+  val result = (100/((29%9)+1)) + seed + value
+  println(s"feature=NestedScopes tier=15 seed=$seed result=$result")
 }

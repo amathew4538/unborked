@@ -1,9 +1,9 @@
 (ns Tier14.LoopVectorization
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1413 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "LoopVectorization" value)))
+  (let [value (try (Long/parseLong (or (first args) "13")) (catch Exception _ 13))]
+    (println (str "feature=LoopVectorization tier=14 seed=13 result=" (feature value)))))

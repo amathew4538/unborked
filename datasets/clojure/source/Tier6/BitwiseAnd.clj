@@ -1,9 +1,9 @@
 (ns Tier6.BitwiseAnd
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 603 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "BitwiseAnd" value)))
+  (let [value (try (Long/parseLong (or (first args) "3")) (catch Exception _ 3))]
+    (println (str "feature=BitwiseAnd tier=6 seed=3 result=" (feature value)))))

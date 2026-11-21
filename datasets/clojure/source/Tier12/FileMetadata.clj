@@ -1,9 +1,9 @@
 (ns Tier12.FileMetadata
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1240 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FileMetadata" value)))
+  (let [value (try (Long/parseLong (or (first args) "40")) (catch Exception _ 40))]
+    (println (str "feature=FileMetadata tier=12 seed=40 result=" (feature value)))))

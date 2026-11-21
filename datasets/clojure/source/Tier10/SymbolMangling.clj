@@ -1,9 +1,9 @@
 (ns Tier10.SymbolMangling
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1038 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SymbolMangling" value)))
+  (let [value (try (Long/parseLong (or (first args) "38")) (catch Exception _ 38))]
+    (println (str "feature=SymbolMangling tier=10 seed=38 result=" (feature value)))))

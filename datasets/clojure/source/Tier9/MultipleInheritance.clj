@@ -1,9 +1,9 @@
 (ns Tier9.MultipleInheritance
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 900 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "MultipleInheritance" value)))
+  (let [value (try (Long/parseLong (or (first args) "0")) (catch Exception _ 0))]
+    (println (str "feature=MultipleInheritance tier=9 seed=0 result=" (feature value)))))

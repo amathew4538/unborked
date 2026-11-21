@@ -1,9 +1,9 @@
 (ns Tier15.UseAfterFree
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1536 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "UseAfterFree" value)))
+  (let [value (try (Long/parseLong (or (first args) "36")) (catch Exception _ 36))]
+    (println (str "feature=UseAfterFree tier=15 seed=36 result=" (feature value)))))

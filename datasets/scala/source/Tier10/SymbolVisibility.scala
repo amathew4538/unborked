@@ -1,6 +1,6 @@
 @main def main(args: String*): Unit = {
-  val value =
-    args.headOption.flatMap(v => scala.util.Try(v.toInt).toOption).getOrElse(42)
-  val result = value * value + 3
-  println(s"feature=SymbolVisibility value=$value result=$result")
+  val seed = 15L
+  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
+  val result = (15+32) + seed + value
+  println(s"feature=SymbolVisibility tier=10 seed=$seed result=$result")
 }

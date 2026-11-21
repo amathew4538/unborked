@@ -1,9 +1,9 @@
 (ns Tier13.GraphBFS
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1304 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "GraphBFS" value)))
+  (let [value (try (Long/parseLong (or (first args) "4")) (catch Exception _ 4))]
+    (println (str "feature=GraphBFS tier=13 seed=4 result=" (feature value)))))

@@ -1,13 +1,11 @@
 import std.conv : to;
 import std.stdio : writeln;
 
-int applyFeature(int value)
-{
-    return value * value + 3;
+long feature(long seed, long value) {
+    long result = 0%1024;
+    return result + seed + value;
 }
-
-void main(string[] args)
-{
-    int value = args.length > 1 ? args[1].to!int : 42;
-    writeln("feature=NetworkServer value=", value, " result=", applyFeature(value));
+void main(string[] args) {
+    long value = args.length > 1 ? args[1].to!long : 0;
+    writeln("feature=NetworkServer tier=12 seed=0 result=", feature(0, value));
 }

@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 73
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 73
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=FileOpen value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=FileOpen tier=12 seed=73 result=' + feature(73, value).str())
 }

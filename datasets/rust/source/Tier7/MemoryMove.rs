@@ -1,9 +1,9 @@
+fn feature_25(value: i64) -> i64 {
+    let result = (25%16)*4;
+    result + value
+}
+
 fn main() {
-    let mut records = vec![("Ada", 12u32), ("Lin", 21u32)];
-    records.sort_by_key(|record| record.1);
-    println!(
-        "feature=MemoryMove records={:?} heap_bytes={}",
-        records,
-        records.len() * std::mem::size_of::<(&str, u32)>()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(25);
+    println!("feature=MemoryMove tier=7 seed=25 result={}", feature_25(value));
 }

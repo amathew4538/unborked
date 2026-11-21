@@ -1,9 +1,9 @@
 (ns Tier6.FloatingPoint
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 621 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FloatingPoint" value)))
+  (let [value (try (Long/parseLong (or (first args) "21")) (catch Exception _ 21))]
+    (println (str "feature=FloatingPoint tier=6 seed=21 result=" (feature value)))))

@@ -1,9 +1,14 @@
 using System;
-public class Devirtualization
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=Devirtualization args=" + args.Length + " sum=" + sum);
+
+public class Devirtualization {
+    public static long Feature(long seed, long value) {
+        long result = (92*(92+1))/2;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 92;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=Devirtualization tier=14 seed=92 result=" + Feature(92, value));
     }
 }

@@ -1,19 +1,9 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+fn feature_0(value: i64) -> i64 {
+    let result = 1+(0%8);
+    result + value
+}
+
 fn main() {
-    let balance = Arc::new(Mutex::new(100));
-    let mut workers = Vec::new();
-    for _ in 0..4 {
-        let copy = Arc::clone(&balance);
-        workers.push(thread::spawn(move || {
-            *copy.lock().unwrap() += 25;
-        }));
-    }
-    for worker in workers {
-        worker.join().unwrap();
-    }
-    println!(
-        "feature=ThreadLocalVariables balance={}",
-        *balance.lock().unwrap()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(0);
+    println!("feature=ThreadLocalVariables tier=11 seed=0 result={}", feature_0(value));
 }

@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 50
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 50
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=PositionIndependentExecutable value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=PositionIndependentExecutable tier=10 seed=50 result=' + feature(50, value).str())
 }

@@ -1,9 +1,9 @@
 (ns Tier6.SwitchCase
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 677 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SwitchCase" value)))
+  (let [value (try (Long/parseLong (or (first args) "77")) (catch Exception _ 77))]
+    (println (str "feature=SwitchCase tier=6 seed=77 result=" (feature value)))))

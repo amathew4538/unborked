@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 45
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 45
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=ThreadJoin value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=ThreadJoin tier=11 seed=45 result=' + feature(45, value).str())
 }

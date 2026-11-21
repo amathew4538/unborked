@@ -1,9 +1,14 @@
 using System;
-public class FunctionOverloading
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=FunctionOverloading args=" + args.Length + " sum=" + sum);
+
+public class FunctionOverloading {
+    public static long Feature(long seed, long value) {
+        long result = 20+((20%5)*7);
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 20;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=FunctionOverloading tier=8 seed=20 result=" + Feature(20, value));
     }
 }

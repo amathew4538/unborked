@@ -1,9 +1,14 @@
 using System;
-public class NullDereference
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=NullDereference args=" + args.Length + " sum=" + sum);
+
+public class NullDereference {
+    public static long Feature(long seed, long value) {
+        long result = 100/((26%9)+1);
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 26;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=NullDereference tier=15 seed=26 result=" + Feature(26, value));
     }
 }

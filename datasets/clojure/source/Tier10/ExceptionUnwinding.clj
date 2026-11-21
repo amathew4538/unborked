@@ -1,9 +1,9 @@
 (ns Tier10.ExceptionUnwinding
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1037 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ExceptionUnwinding" value)))
+  (let [value (try (Long/parseLong (or (first args) "37")) (catch Exception _ 37))]
+    (println (str "feature=ExceptionUnwinding tier=10 seed=37 result=" (feature value)))))

@@ -1,11 +1,9 @@
-fn checked_divide(a: i64, b: i64) -> Result<i64, &'static str> {
-    if b == 0 {
-        Err("division by zero")
-    } else {
-        Ok(a / b)
-    }
+fn feature_35(value: i64) -> i64 {
+    let result = 100/((35%9)+1);
+    result + value
 }
+
 fn main() {
-    println!("feature=StrictAliasing result={:?}", checked_divide(100, 4));
-    println!("feature=StrictAliasing result={:?}", checked_divide(100, 0));
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(35);
+    println!("feature=StrictAliasing tier=15 seed=35 result={}", feature_35(value));
 }

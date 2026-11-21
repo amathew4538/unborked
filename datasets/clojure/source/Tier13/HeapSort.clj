@@ -1,9 +1,9 @@
 (ns Tier13.HeapSort
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1337 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "HeapSort" value)))
+  (let [value (try (Long/parseLong (or (first args) "37")) (catch Exception _ 37))]
+    (println (str "feature=HeapSort tier=13 seed=37 result=" (feature value)))))

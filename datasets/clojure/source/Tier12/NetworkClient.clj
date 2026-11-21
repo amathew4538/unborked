@@ -1,9 +1,9 @@
 (ns Tier12.NetworkClient
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1283 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "NetworkClient" value)))
+  (let [value (try (Long/parseLong (or (first args) "83")) (catch Exception _ 83))]
+    (println (str "feature=NetworkClient tier=12 seed=83 result=" (feature value)))))

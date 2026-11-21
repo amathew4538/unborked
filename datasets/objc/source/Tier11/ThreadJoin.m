@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 
-static long applyFeature(long value) { return value * value + 3; }
+static long feature(long seed, long value) {
+    long result = 1+(45%8) + seed + value;
+    return result;
+}
 
-int main(int argc, const char *argv[]) {
-  @autoreleasepool {
-    long value = argc > 1 ? strtol(argv[1], NULL, 10) : 42;
-    NSLog(@"feature=ThreadJoin value=%ld result=%ld", value,
-          applyFeature(value));
-  }
-  return 0;
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        long value = argc > 1 ? strtol(argv[1], NULL, 10) : 45;
+        NSLog(@"feature=ThreadJoin tier=11 seed=45 result=%ld", feature(45, value));
+    }
+    return 0;
 }

@@ -1,8 +1,11 @@
 package datasets.kotlin.source.Tier6
 
-fun applyFeature(value: Int): Int = value * value + 3
+fun feature(seed: Long, value: Long): Long {
+    val result = seed * 17 + 3L
+    return result + seed + value
+}
 
 fun main(args: Array<String>) {
-    val value = args.firstOrNull()?.toIntOrNull() ?: 42
-    println("feature=IntegerOverflow value=$value result=${applyFeature(value)}")
+    val value = args.firstOrNull()?.toLongOrNull() ?: 85L
+    println("feature=IntegerOverflow tier=6 seed=85 result=${feature(85L, value)}")
 }

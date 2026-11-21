@@ -1,15 +1,9 @@
-trait Report {
-    fn render(&self) -> String;
+fn feature_0(value: i64) -> i64 {
+    let result = (0%11)+40;
+    result + value
 }
-struct Inventory {
-    items: i32,
-}
-impl Report for Inventory {
-    fn render(&self) -> String {
-        format!("items={}", self.items)
-    }
-}
+
 fn main() {
-    let report: Box<dyn Report> = Box::new(Inventory { items: 5 });
-    println!("feature=MultipleInheritance report={}", report.render());
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(0);
+    println!("feature=MultipleInheritance tier=9 seed=0 result={}", feature_0(value));
 }

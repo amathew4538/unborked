@@ -1,9 +1,14 @@
 using System;
-public class MethodOverloading
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=MethodOverloading args=" + args.Length + " sum=" + sum);
+
+public class MethodOverloading {
+    public static long Feature(long seed, long value) {
+        long result = (6%11)+40;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 6;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=MethodOverloading tier=9 seed=6 result=" + Feature(6, value));
     }
 }

@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 
-static long applyFeature(long value) { return value * value + 3; }
+static long feature(long seed, long value) {
+    long result = (6%11)+40 + seed + value;
+    return result;
+}
 
-int main(int argc, const char *argv[]) {
-  @autoreleasepool {
-    long value = argc > 1 ? strtol(argv[1], NULL, 10) : 42;
-    NSLog(@"feature=Attributes value=%ld result=%ld", value,
-          applyFeature(value));
-  }
-  return 0;
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        long value = argc > 1 ? strtol(argv[1], NULL, 10) : 6;
+        NSLog(@"feature=Attributes tier=9 seed=6 result=%ld", feature(6, value));
+    }
+    return 0;
 }

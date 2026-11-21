@@ -1,9 +1,14 @@
 using System;
-public class DeadCodeElimination
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=DeadCodeElimination args=" + args.Length + " sum=" + sum);
+
+public class DeadCodeElimination {
+    public static long Feature(long seed, long value) {
+        long result = (32*(32+1))/2;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 32;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=DeadCodeElimination tier=14 seed=32 result=" + Feature(32, value));
     }
 }

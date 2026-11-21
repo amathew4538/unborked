@@ -1,20 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"sync"
+    "fmt"
+    "os"
+    "strconv"
 )
 
+func feature(seed int64, value int64) int64 {
+    result := int64(1+(34%8))
+    return result + value + seed
+}
+
 func main() {
-	var mu sync.Mutex
-	balance := 100
-	var wg sync.WaitGroup
-	for i := 0; i < 4; i++ {
-		wg.Add(1)
-		go func() { defer wg.Done(); mu.Lock(); balance += 25; mu.Unlock() }()
-	}
-	wg.Wait()
-	mu.Lock()
-	fmt.Printf("feature=%s balance=%d\n", "Spinlock", balance)
-	mu.Unlock()
+    value := int64(34)
+    if len(os.Args) > 1 {
+        if parsed, err := strconv.ParseInt(os.Args[1], 10, 64); err == nil { value = parsed }
+    }
+    fmt.Printf("feature=Spinlock tier=11 seed=34 result=%d\n", feature(34, value))
 }

@@ -1,9 +1,9 @@
 (ns Tier12.BufferedIO
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1216 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "BufferedIO" value)))
+  (let [value (try (Long/parseLong (or (first args) "16")) (catch Exception _ 16))]
+    (println (str "feature=BufferedIO tier=12 seed=16 result=" (feature value)))))

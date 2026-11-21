@@ -1,9 +1,9 @@
 (ns Tier7.NestedStruct
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 738 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "NestedStruct" value)))
+  (let [value (try (Long/parseLong (or (first args) "38")) (catch Exception _ 38))]
+    (println (str "feature=NestedStruct tier=7 seed=38 result=" (feature value)))))

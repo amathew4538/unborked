@@ -1,8 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
+    "strconv"
 )
 
-func main() { args := os.Args[1:]; fmt.Printf("feature=%s args=%v\n", "Labels", args) }
+func feature(seed int64, value int64) int64 {
+    result := int64(64+((64%5)*7))
+    return result + value + seed
+}
+
+func main() {
+    value := int64(64)
+    if len(os.Args) > 1 {
+        if parsed, err := strconv.ParseInt(os.Args[1], 10, 64); err == nil { value = parsed }
+    }
+    fmt.Printf("feature=Labels tier=8 seed=64 result=%d\n", feature(64, value))
+}

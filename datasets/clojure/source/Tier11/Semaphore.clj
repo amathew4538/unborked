@@ -1,9 +1,9 @@
 (ns Tier11.Semaphore
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1129 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Semaphore" value)))
+  (let [value (try (Long/parseLong (or (first args) "29")) (catch Exception _ 29))]
+    (println (str "feature=Semaphore tier=11 seed=29 result=" (feature value)))))

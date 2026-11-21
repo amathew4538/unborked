@@ -1,8 +1,11 @@
 package datasets.kotlin.source.Tier8
 
-fun applyFeature(value: Int): Int = value * value + 3
+fun feature(seed: Long, value: Long): Long {
+    val result = seed * 17 + 3L
+    return result + seed + value
+}
 
 fun main(args: Array<String>) {
-    val value = args.firstOrNull()?.toIntOrNull() ?: 42
-    println("feature=Lambda value=$value result=${applyFeature(value)}")
+    val value = args.firstOrNull()?.toLongOrNull() ?: 34L
+    println("feature=Lambda tier=8 seed=34 result=${feature(34L, value)}")
 }

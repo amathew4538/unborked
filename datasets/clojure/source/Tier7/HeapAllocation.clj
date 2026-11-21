@@ -1,9 +1,9 @@
 (ns Tier7.HeapAllocation
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 749 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "HeapAllocation" value)))
+  (let [value (try (Long/parseLong (or (first args) "49")) (catch Exception _ 49))]
+    (println (str "feature=HeapAllocation tier=7 seed=49 result=" (feature value)))))

@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 7
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 7
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=ImplementationDefinedBehavior value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=ImplementationDefinedBehavior tier=15 seed=7 result=' + feature(7, value).str())
 }

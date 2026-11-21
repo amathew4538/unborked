@@ -1,9 +1,9 @@
 (ns Tier11.DataRace
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1196 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "DataRace" value)))
+  (let [value (try (Long/parseLong (or (first args) "96")) (catch Exception _ 96))]
+    (println (str "feature=DataRace tier=11 seed=96 result=" (feature value)))))

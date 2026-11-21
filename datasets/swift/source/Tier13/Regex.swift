@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (45%64)*(45%64)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=Regex value=\(value) result=\(applyFeature(value))")
+let seed = 45
+let value = Int(CommandLine.arguments.dropFirst().first ?? "45") ?? seed
+print("feature=Regex tier=13 seed=\(seed) result=\(feature(seed, value))")

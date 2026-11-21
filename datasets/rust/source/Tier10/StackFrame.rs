@@ -1,12 +1,9 @@
-#[repr(C)]
-struct Range {
-    low: i32,
-    high: i32,
+fn feature_90(value: i64) -> i64 {
+    let result = 90+32;
+    result + value
 }
-extern "C" fn make_range(a: i32, b: i32) -> Range {
-    Range { low: a, high: b }
-}
+
 fn main() {
-    let range = make_range(10, 20);
-    println!("feature=StackFrame low={} high={}", range.low, range.high);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(90);
+    println!("feature=StackFrame tier=10 seed=90 result={}", feature_90(value));
 }

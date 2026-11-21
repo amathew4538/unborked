@@ -1,9 +1,9 @@
 (ns Tier14.Devirtualization
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1492 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Devirtualization" value)))
+  (let [value (try (Long/parseLong (or (first args) "92")) (catch Exception _ 92))]
+    (println (str "feature=Devirtualization tier=14 seed=92 result=" (feature value)))))

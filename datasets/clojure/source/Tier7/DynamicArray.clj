@@ -1,9 +1,9 @@
 (ns Tier7.DynamicArray
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 750 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "DynamicArray" value)))
+  (let [value (try (Long/parseLong (or (first args) "50")) (catch Exception _ 50))]
+    (println (str "feature=DynamicArray tier=7 seed=50 result=" (feature value)))))

@@ -1,8 +1,11 @@
 package datasets.kotlin.source.Tier15
 
-fun applyFeature(value: Int): Int = value * value + 3
+fun feature(seed: Long, value: Long): Long {
+    val result = seed * 17 + 3L
+    return result + seed + value
+}
 
 fun main(args: Array<String>) {
-    val value = args.firstOrNull()?.toIntOrNull() ?: 42
-    println("feature=DeepRecursion value=$value result=${applyFeature(value)}")
+    val value = args.firstOrNull()?.toLongOrNull() ?: 59L
+    println("feature=DeepRecursion tier=15 seed=59 result=${feature(59L, value)}")
 }

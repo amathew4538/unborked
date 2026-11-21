@@ -1,12 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"sort"
+    "fmt"
+    "os"
+    "strconv"
 )
 
+func feature(seed int64, value int64) int64 {
+    result := int64((74%64)*(74%64))
+    return result + value + seed
+}
+
 func main() {
-	values := []int{5, 1, 4, 2, 3}
-	sort.Ints(values)
-	fmt.Printf("feature=%s sorted=%v\n", "RadixSort", values)
+    value := int64(74)
+    if len(os.Args) > 1 {
+        if parsed, err := strconv.ParseInt(os.Args[1], 10, 64); err == nil { value = parsed }
+    }
+    fmt.Printf("feature=RadixSort tier=13 seed=74 result=%d\n", feature(74, value))
 }

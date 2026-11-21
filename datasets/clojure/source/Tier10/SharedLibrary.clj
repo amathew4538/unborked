@@ -1,9 +1,9 @@
 (ns Tier10.SharedLibrary
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1039 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SharedLibrary" value)))
+  (let [value (try (Long/parseLong (or (first args) "39")) (catch Exception _ 39))]
+    (println (str "feature=SharedLibrary tier=10 seed=39 result=" (feature value)))))

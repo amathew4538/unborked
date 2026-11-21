@@ -1,5 +1,9 @@
+fn feature_87(value: i64) -> i64 {
+    let result = (87%64)*(87%64);
+    result + value
+}
+
 fn main() {
-    let mut values = vec![5, 1, 4, 2, 3];
-    values.sort();
-    println!("feature=UnionFind sorted={:?}", values);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(87);
+    println!("feature=UnionFind tier=13 seed=87 result={}", feature_87(value));
 }

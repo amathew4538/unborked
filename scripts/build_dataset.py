@@ -1195,23 +1195,6 @@ def compile_scripts(
     for language, config in target_languages:
         for tier, base_scripts in SCRIPTS.items():
             scripts = list(base_scripts)
-            tier_source = DATASETS / language / "source" / tier
-            if tier_source.is_dir():
-                if language == "go":
-                    augmented_dirs = sorted(
-                        directory.name
-                        for directory in tier_source.iterdir()
-                        if directory.is_dir() and "_A" in directory.name
-                    )
-                else:
-                    augmented_dirs = sorted(
-                        path.stem
-                        for path in tier_source.iterdir()
-                        if path.is_file()
-                        and "_A" in path.stem
-                        and path.suffix == f".{config['ext']}"
-                    )
-                scripts.extend(name for name in augmented_dirs if name not in scripts)
 
             for script in scripts:
                 if language == "go":
@@ -1458,6 +1441,53 @@ def write_build_metadata(
     write_text(output, json.dumps(metadata, indent=2) + "\n")
 
 
+def compress_artifacts(
+    active_languages,
+    *,
+    level: int = 19,
+    delete_original: bool = False,
+) -> int:
+    """Create Zstandard .zst copies of compiled binaries and assembly/bytecode."""
+    try:
+        import zstandard
+    except ImportError:
+        zstandard = None
+
+    allowed = set(active_languages)
+    compressed = 0
+    for language, config in LANGUAGES.items():
+        if language not in allowed:
+            continue
+        for artifact_type in ("bin", "asm"):
+            root = DATASETS / language / artifact_type
+            if not root.is_dir():
+                continue
+            for path in sorted(root.rglob("*")):
+                if not path.is_file() or path.suffix == ".zst":
+                    continue
+                if path.name.endswith(".build.json"):
+                    continue
+                output = path.with_name(path.name + ".zst")
+                if zstandard is not None:
+                    cctx = zstandard.ZstdCompressor(level=level)
+                    output.write_bytes(cctx.compress(path.read_bytes()))
+                else:
+                    if shutil.which("zstd") is None:
+                        print(
+                            f"{RED}Zstandard unavailable: install the 'zstandard' "
+                            f"Python package or zstd executable.{RESET}"
+                        )
+                        return compressed
+                    run_command(
+                        ["zstd", f"-{level}", "-q", "-f", str(path), "-o", str(output)],
+                        verbose=False,
+                    )
+                compressed += 1
+                if delete_original:
+                    path.unlink()
+    return compressed
+
+
 def clean_files():
     """
     Clean all files
@@ -1624,6 +1654,32 @@ def main() -> int:
         default=None,
         help="Discard assembly artifacts larger than this size (MiB)",
     )
+    parser.add_argument(
+        "--zstd",
+        action="store_true",
+        help="Create Zstandard .zst copies of binaries and assembly artifacts",
+    )
+    parser.add_argument(
+        "--zstd-level",
+        type=int,
+        default=19,
+        help="Zstandard compression level (default: 19)",
+    )
+    parser.add_argument(
+        "--zstd-delete-original",
+        action="store_true",
+        help="Remove original artifact after Zstandard compression",
+    )
+    parser.add_argument(
+        "--parquet",
+        action="store_true",
+        help="Export built artifacts to Zstandard-compressed Hugging Face/Parquet shards",
+    )
+    parser.add_argument(
+        "--parquet-output",
+        default="hf-dataset",
+        help="Output directory for Parquet export",
+    )
     args = parser.parse_args()
 
     try:
@@ -1650,6 +1706,25 @@ def main() -> int:
 
         if args.csv:
             export_csv(args.languages)
+        if args.zstd:
+            count = compress_artifacts(
+                args.languages,
+                level=args.zstd_level,
+                delete_original=args.zstd_delete_original,
+            )
+            print(f"{GREEN}Zstandard copies created: {count}{RESET}")
+        if args.parquet:
+            run_command(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts" / "export_hf_dataset.py"),
+                    "--output",
+                    args.parquet_output,
+                    "--backend",
+                    "pyarrow",
+                ],
+                verbose=args.verbose,
+            )
 
     except MissingSourceError as e:
         print(str(e))

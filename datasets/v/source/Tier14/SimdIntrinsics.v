@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 81
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 81
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=SimdIntrinsics value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=SimdIntrinsics tier=14 seed=81 result=' + feature(81, value).str())
 }

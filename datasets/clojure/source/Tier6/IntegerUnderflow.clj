@@ -1,9 +1,9 @@
 (ns Tier6.IntegerUnderflow
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 667 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "IntegerUnderflow" value)))
+  (let [value (try (Long/parseLong (or (first args) "67")) (catch Exception _ 67))]
+    (println (str "feature=IntegerUnderflow tier=6 seed=67 result=" (feature value)))))

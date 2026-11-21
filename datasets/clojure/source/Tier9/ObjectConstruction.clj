@@ -1,9 +1,9 @@
 (ns Tier9.ObjectConstruction
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 993 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ObjectConstruction" value)))
+  (let [value (try (Long/parseLong (or (first args) "93")) (catch Exception _ 93))]
+    (println (str "feature=ObjectConstruction tier=9 seed=93 result=" (feature value)))))

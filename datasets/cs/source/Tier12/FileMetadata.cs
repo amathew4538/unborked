@@ -1,9 +1,14 @@
 using System;
-public class FileMetadata
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=FileMetadata args=" + args.Length + " sum=" + sum);
+
+public class FileMetadata {
+    public static long Feature(long seed, long value) {
+        long result = 40%1024;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 40;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=FileMetadata tier=12 seed=40 result=" + Feature(40, value));
     }
 }

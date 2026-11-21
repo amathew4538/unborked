@@ -1,6 +1,6 @@
 @main def main(args: String*): Unit = {
-  val value =
-    args.headOption.flatMap(v => scala.util.Try(v.toInt).toOption).getOrElse(42)
-  val result = value * value + 3
-  println(s"feature=PatternMatching value=$value result=$result")
+  val seed = 65L
+  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
+  val result = (65*17+3) + seed + value
+  println(s"feature=PatternMatching tier=6 seed=$seed result=$result")
 }

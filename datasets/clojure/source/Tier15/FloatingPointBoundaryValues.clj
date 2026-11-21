@@ -1,9 +1,9 @@
 (ns Tier15.FloatingPointBoundaryValues
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1520 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FloatingPointBoundaryValues" value)))
+  (let [value (try (Long/parseLong (or (first args) "20")) (catch Exception _ 20))]
+    (println (str "feature=FloatingPointBoundaryValues tier=15 seed=20 result=" (feature value)))))

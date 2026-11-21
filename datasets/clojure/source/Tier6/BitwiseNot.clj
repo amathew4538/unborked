@@ -1,9 +1,9 @@
 (ns Tier6.BitwiseNot
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 682 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "BitwiseNot" value)))
+  (let [value (try (Long/parseLong (or (first args) "82")) (catch Exception _ 82))]
+    (println (str "feature=BitwiseNot tier=6 seed=82 result=" (feature value)))))

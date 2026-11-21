@@ -1,11 +1,9 @@
-#[inline(always)]
-fn square(x: i64) -> i64 {
-    x * x
+fn feature_52(value: i64) -> i64 {
+    let result = (52*(52+1))/2;
+    result + value
 }
+
 fn main() {
-    let mut sum = 0i64;
-    for i in 0..1024 {
-        sum += square(i);
-    }
-    println!("feature=CommonSubexpressionElimination sum={}", sum);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(52);
+    println!("feature=CommonSubexpressionElimination tier=14 seed=52 result={}", feature_52(value));
 }

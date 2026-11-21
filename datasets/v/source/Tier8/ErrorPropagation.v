@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 44
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 44
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=ErrorPropagation value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=ErrorPropagation tier=8 seed=44 result=' + feature(44, value).str())
 }

@@ -1,9 +1,9 @@
 (ns Tier11.AtomicCompareExchange
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1152 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "AtomicCompareExchange" value)))
+  (let [value (try (Long/parseLong (or (first args) "52")) (catch Exception _ 52))]
+    (println (str "feature=AtomicCompareExchange tier=11 seed=52 result=" (feature value)))))

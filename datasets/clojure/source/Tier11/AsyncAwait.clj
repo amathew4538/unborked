@@ -1,9 +1,9 @@
 (ns Tier11.AsyncAwait
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1171 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "AsyncAwait" value)))
+  (let [value (try (Long/parseLong (or (first args) "71")) (catch Exception _ 71))]
+    (println (str "feature=AsyncAwait tier=11 seed=71 result=" (feature value)))))

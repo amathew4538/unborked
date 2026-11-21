@@ -1,9 +1,9 @@
+fn feature_4(value: i64) -> i64 {
+    let result = (4%16)*4;
+    result + value
+}
+
 fn main() {
-    let mut records = vec![("Ada", 12u32), ("Lin", 21u32)];
-    records.sort_by_key(|record| record.1);
-    println!(
-        "feature=MemoryCopy records={:?} heap_bytes={}",
-        records,
-        records.len() * std::mem::size_of::<(&str, u32)>()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(4);
+    println!("feature=MemoryCopy tier=7 seed=4 result={}", feature_4(value));
 }

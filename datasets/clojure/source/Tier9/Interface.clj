@@ -1,9 +1,9 @@
 (ns Tier9.Interface
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 948 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Interface" value)))
+  (let [value (try (Long/parseLong (or (first args) "48")) (catch Exception _ 48))]
+    (println (str "feature=Interface tier=9 seed=48 result=" (feature value)))))

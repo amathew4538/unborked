@@ -1,9 +1,9 @@
 (ns Tier13.BinaryTree
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1383 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "BinaryTree" value)))
+  (let [value (try (Long/parseLong (or (first args) "83")) (catch Exception _ 83))]
+    (println (str "feature=BinaryTree tier=13 seed=83 result=" (feature value)))))

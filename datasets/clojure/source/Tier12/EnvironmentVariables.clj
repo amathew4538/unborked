@@ -1,9 +1,9 @@
 (ns Tier12.EnvironmentVariables
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1252 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "EnvironmentVariables" value)))
+  (let [value (try (Long/parseLong (or (first args) "52")) (catch Exception _ 52))]
+    (println (str "feature=EnvironmentVariables tier=12 seed=52 result=" (feature value)))))

@@ -1,9 +1,9 @@
 (ns Tier6.SignedUnsigned
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 609 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SignedUnsigned" value)))
+  (let [value (try (Long/parseLong (or (first args) "9")) (catch Exception _ 9))]
+    (println (str "feature=SignedUnsigned tier=6 seed=9 result=" (feature value)))))

@@ -1,16 +1,9 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+fn feature_57(value: i64) -> i64 {
+    let result = 1+(57%8);
+    result + value
+}
+
 fn main() {
-    let balance = Arc::new(Mutex::new(100));
-    let mut workers = Vec::new();
-    for _ in 0..4 {
-        let copy = Arc::clone(&balance);
-        workers.push(thread::spawn(move || {
-            *copy.lock().unwrap() += 25;
-        }));
-    }
-    for worker in workers {
-        worker.join().unwrap();
-    }
-    println!("feature=AtomicStore balance={}", *balance.lock().unwrap());
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(57);
+    println!("feature=AtomicStore tier=11 seed=57 result={}", feature_57(value));
 }

@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = 100/((35%9)+1)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=StrictAliasing value=\(value) result=\(applyFeature(value))")
+let seed = 35
+let value = Int(CommandLine.arguments.dropFirst().first ?? "35") ?? seed
+print("feature=StrictAliasing tier=15 seed=\(seed) result=\(feature(seed, value))")

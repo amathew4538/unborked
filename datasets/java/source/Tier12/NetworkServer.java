@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class NetworkServer {
+    public static long feature(long seed, long value) {
+        long result = 0%1024;
+        return result + seed + value;
+    }
+
     public static void main(String[] args) {
-        int sum = 0;
-        for (String arg : args) {
-            try {
-                sum += Integer.parseInt(arg);
-            } catch (NumberFormatException ignored) {
-            }
+        long value = 0;
+        if (args.length > 0) {
+            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
         }
-        System.out.printf("feature=NetworkServer args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=NetworkServer tier=12 seed=0 result=%d%%n", feature(0, value));
     }
 }

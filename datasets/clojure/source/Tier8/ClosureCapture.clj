@@ -1,9 +1,9 @@
 (ns Tier8.ClosureCapture
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 802 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ClosureCapture" value)))
+  (let [value (try (Long/parseLong (or (first args) "2")) (catch Exception _ 2))]
+    (println (str "feature=ClosureCapture tier=8 seed=2 result=" (feature value)))))

@@ -1,9 +1,9 @@
 (ns Tier9.TemplateSpecialization
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 995 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "TemplateSpecialization" value)))
+  (let [value (try (Long/parseLong (or (first args) "95")) (catch Exception _ 95))]
+    (println (str "feature=TemplateSpecialization tier=9 seed=95 result=" (feature value)))))

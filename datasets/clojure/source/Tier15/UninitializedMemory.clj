@@ -1,9 +1,9 @@
 (ns Tier15.UninitializedMemory
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1567 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "UninitializedMemory" value)))
+  (let [value (try (Long/parseLong (or (first args) "67")) (catch Exception _ 67))]
+    (println (str "feature=UninitializedMemory tier=15 seed=67 result=" (feature value)))))

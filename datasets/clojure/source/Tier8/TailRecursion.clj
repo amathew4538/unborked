@@ -1,9 +1,9 @@
 (ns Tier8.TailRecursion
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 863 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "TailRecursion" value)))
+  (let [value (try (Long/parseLong (or (first args) "63")) (catch Exception _ 63))]
+    (println (str "feature=TailRecursion tier=8 seed=63 result=" (feature value)))))

@@ -1,9 +1,9 @@
 (ns Tier7.Pointer
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 734 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Pointer" value)))
+  (let [value (try (Long/parseLong (or (first args) "34")) (catch Exception _ 34))]
+    (println (str "feature=Pointer tier=7 seed=34 result=" (feature value)))))

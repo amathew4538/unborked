@@ -1,9 +1,14 @@
 using System;
-public class BinarySearchTree
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=BinarySearchTree args=" + args.Length + " sum=" + sum);
+
+public class BinarySearchTree {
+    public static long Feature(long seed, long value) {
+        long result = (74%64)*(74%64);
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 74;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=BinarySearchTree tier=13 seed=74 result=" + Feature(74, value));
     }
 }

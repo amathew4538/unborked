@@ -1,9 +1,9 @@
 (ns Tier10.StaticLinking
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1026 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "StaticLinking" value)))
+  (let [value (try (Long/parseLong (or (first args) "26")) (catch Exception _ 26))]
+    (println (str "feature=StaticLinking tier=10 seed=26 result=" (feature value)))))

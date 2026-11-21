@@ -1,9 +1,9 @@
 (ns Tier7.Union
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 762 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Union" value)))
+  (let [value (try (Long/parseLong (or (first args) "62")) (catch Exception _ 62))]
+    (println (str "feature=Union tier=7 seed=62 result=" (feature value)))))

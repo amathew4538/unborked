@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = 61+((61%5)*7)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=NestedFunction value=\(value) result=\(applyFeature(value))")
+let seed = 61
+let value = Int(CommandLine.arguments.dropFirst().first ?? "61") ?? seed
+print("feature=NestedFunction tier=8 seed=\(seed) result=\(feature(seed, value))")
