@@ -4,7 +4,6 @@
 (defn -main []
   (let [processed (->> [1 2 3 4 5 6]
                        (filter even?)
-                       (map #( * % %)))]
+                       (map #(* % %)))]
     (println "processed:" (count processed))
-    (println "squares sum:" (reduce + processed)))
-)
+    (println "squares sum:" (reduce + processed))))

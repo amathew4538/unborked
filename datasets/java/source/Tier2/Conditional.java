@@ -1,9 +1,11 @@
-package datasets.java.source.Tier1;
+package datasets.java.source.Tier2;
 
 public class Conditional {
     static String classify(int n) {
-        if (n < 0) return "negative";
-        if(n > 0) return "positive";
+        if (n < 0)
+            return "negative";
+        if (n > 0)
+            return "positive";
         return "zero";
     }
 

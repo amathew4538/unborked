@@ -7,5 +7,4 @@
   (println "room: library")
   (println "item: key")
   (println "inventory: key")
-  (println "outcome: door unlocked")
-)
+  (println "outcome: door unlocked"))

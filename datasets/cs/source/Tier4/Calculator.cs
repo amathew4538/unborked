@@ -1,1 +1,2 @@
-using System; class Calculator { static void Main(string[]a){double x=a.Length>0?double.Parse(a[0]):8,y=a.Length>1?double.Parse(a[1]):2;char op=a.Length>2?a[2][0]:'+';double r=op=='+'?x+y:op=='-'?x-y:op=='*'?x*y:x/y;if(op=='/'&&y==0){Console.WriteLine("division by zero");return;}Console.WriteLine($"{x:F2} {op} {y:F2} = {r:F2}");}}
+using System;
+class Calculator { static void Main(string[] a) { double x = a.Length > 0 ? double.Parse(a[0]) : 8, y = a.Length > 1 ? double.Parse(a[1]) : 2; char op = a.Length > 2 ? a[2][0] : '+'; double r = op == '+' ? x + y : op == '-' ? x - y : op == '*' ? x * y : x / y; if (op == '/' && y == 0) { Console.WriteLine("division by zero"); return; } Console.WriteLine($"{x:F2} {op} {y:F2} = {r:F2}"); } }

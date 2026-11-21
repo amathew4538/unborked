@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import shutil
-
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATASETS = ROOT / "datasets"
@@ -51,6 +50,12 @@ def augment_source(source: Path, copies: int) -> list[Path]:
 
 
 def main() -> int:
+    """
+    Main function
+    
+    :return: Error Code
+    :rtype: int
+    """
     parser = argparse.ArgumentParser(
         description="Create semantic-preserving comment variants for source files."
     )

@@ -1,1 +1,14 @@
-import java.util.*; public class LruCache { public static void main(String[] a){LinkedHashMap<Character,Integer> c=new LinkedHashMap<>(3,.75f,true);c.put('A',1);c.put('B',2);c.put('C',3);System.out.println("A="+c.getOrDefault('A',-1));System.out.println("B="+c.getOrDefault('B',-1));c.put('D',4);System.out.println("D="+c.getOrDefault('D',-1));}}
+import java.util.*;
+
+public class LruCache {
+    public static void main(String[] a) {
+        LinkedHashMap<Character, Integer> c = new LinkedHashMap<>(3, .75f, true);
+        c.put('A', 1);
+        c.put('B', 2);
+        c.put('C', 3);
+        System.out.println("A=" + c.getOrDefault('A', -1));
+        System.out.println("B=" + c.getOrDefault('B', -1));
+        c.put('D', 4);
+        System.out.println("D=" + c.getOrDefault('D', -1));
+    }
+}

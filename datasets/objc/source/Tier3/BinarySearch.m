@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
 int main() {
-    @autoreleasepool {
-        NSLog(@"index: 3");
-    }
-    return 0;
+  @autoreleasepool {
+    NSLog(@"index: 3");
+  }
+  return 0;
 }

@@ -1,6 +1,7 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     writeln("processed: 3");
     writeln("squares sum: 56");
 }

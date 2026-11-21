@@ -2,5 +2,4 @@
   (:gen-class))
 
 (defn -main []
-  (println (clojure.string/join " " (sort [42 7 13 2 64 1])))
-)
+  (println (clojure.string/join " " (sort [42 7 13 2 64 1]))))

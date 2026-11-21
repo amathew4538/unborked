@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
 
-int main(){
-    @autoreleasepool {
-        NSLog(@"%d",YES);
-        NSLog(@"%d",NO);
-    }
+int main() {
+  @autoreleasepool {
+    NSLog(@"%d", YES);
+    NSLog(@"%d", NO);
+  }
 
-    return 0;
+  return 0;
 }

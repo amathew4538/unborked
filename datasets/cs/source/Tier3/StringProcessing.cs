@@ -1,1 +1,3 @@
-using System; using System.Linq; class StringProcessing { static void Main(string[]a){var s=a.Length>0?string.Join(" ",a):"Hello compiled world 2026";var words=s.Split((char[])null,System.StringSplitOptions.RemoveEmptyEntries);Console.WriteLine($"letters={s.Count(char.IsLetter)} digits={s.Count(char.IsDigit)} words={words.Length}");}}
+using System;
+using System.Linq;
+class StringProcessing { static void Main(string[] a) { var s = a.Length > 0 ? string.Join(" ", a) : "Hello compiled world 2026"; var words = s.Split((char[])null, System.StringSplitOptions.RemoveEmptyEntries); Console.WriteLine($"letters={s.Count(char.IsLetter)} digits={s.Count(char.IsDigit)} words={words.Length}"); } }

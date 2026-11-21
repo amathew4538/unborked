@@ -1,1 +1,11 @@
-import java.util.*; public class StringProcessing { public static void main(String[] a){String s=a.length>0?String.join(" ",a):"Hello compiled world 2026";long letters=s.chars().filter(Character::isLetter).count();long digits=s.chars().filter(Character::isDigit).count();String[] words=s.trim().split("\\s+");System.out.printf("letters=%d digits=%d words=%d%n",letters,digits,words.length);}}
+import java.util.*;
+
+public class StringProcessing {
+    public static void main(String[] a) {
+        String s = a.length > 0 ? String.join(" ", a) : "Hello compiled world 2026";
+        long letters = s.chars().filter(Character::isLetter).count();
+        long digits = s.chars().filter(Character::isDigit).count();
+        String[] words = s.trim().split("\\s+");
+        System.out.printf("letters=%d digits=%d words=%d%n", letters, digits, words.length);
+    }
+}

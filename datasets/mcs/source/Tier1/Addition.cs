@@ -3,7 +3,8 @@ namespace Tier1
 {
     class Addition
     {
-        static int Add(int a, int b) {
+        static int Add(int a, int b)
+        {
             return a + b;
         }
 

@@ -1,1 +1,3 @@
-using System; using System.IO; class FileSystem { static void Main(string[]a){var p=a.Length>0?a[0]:"unborked.conf";File.WriteAllText(p,"log_level=info\ntheme=dark\n");Console.WriteLine(p+":\n"+File.ReadAllText(p));File.Delete(p);} }
+using System;
+using System.IO;
+class FileSystem { static void Main(string[] a) { var p = a.Length > 0 ? a[0] : "unborked.conf"; File.WriteAllText(p, "log_level=info\ntheme=dark\n"); Console.WriteLine(p + ":\n" + File.ReadAllText(p)); File.Delete(p); } }

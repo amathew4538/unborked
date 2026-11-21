@@ -8,11 +8,9 @@ import random
 from pathlib import Path
 
 import torch
-from build_dataset import SCRIPTS
+from build_dataset import ROOT, SCRIPTS
 from torch.utils.data import ConcatDataset, Dataset
 from transformers import ModernBertConfig, ModernBertForMaskedLM
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
 
 MAX_LEN = 4096
 PAD_ID = 256
@@ -74,13 +72,13 @@ class BinaryByteDataset(Dataset):
 
 if __name__ == "__main__":
     asm_dataset = BinaryByteDataset(
-        datasets_root=ROOT_DIR / "datasets",
+        datasets_root=ROOT / "datasets",
         subfolder="asm",
         extensions=(".s", ".il", ".javap"),
         max_len=MAX_LEN,
     )
     bin_dataset = BinaryByteDataset(
-        datasets_root=ROOT_DIR / "datasets",
+        datasets_root=ROOT / "datasets",
         subfolder="bin",
         extensions=("", ".jar", ".dll", ".exe"),
         max_len=MAX_LEN,

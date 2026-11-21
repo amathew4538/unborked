@@ -1,4 +1,4 @@
-package datasets.java.source.Tier1;
+package datasets.java.source.Tier2;
 
 public class Boolean {
 

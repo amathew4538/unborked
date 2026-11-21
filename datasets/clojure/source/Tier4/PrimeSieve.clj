@@ -9,5 +9,4 @@
       (doseq [multiple (range (* i i) (inc limit) i)] (aset prime multiple false)))
     (print "primes:")
     (doseq [i (range 2 (inc limit)) :when (aget prime i)] (print "" i))
-    (println))
-)
+    (println)))

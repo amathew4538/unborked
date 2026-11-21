@@ -1,5 +1,6 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     writeln("index: 3");
 }

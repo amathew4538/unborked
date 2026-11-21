@@ -1,2 +1,23 @@
-use std::io::{self,BufRead};
-fn main(){let mut room="courtyard";let mut key=false;println!("You are in a courtyard. Commands: north, take, unlock, quit");for line in io::stdin().lock().lines(){let c=line.unwrap_or_default();if c=="north"&&room=="courtyard"{room="library"}else if c=="take"&&room=="library"{key=true;println!("Taken: brass key")}else if c=="unlock"&&key{println!("Door unlocked. You escaped!");return}else if c=="quit"{return}else{println!("Nothing happens")}println!("room: {room}");}}
+use std::io::{self, BufRead};
+fn main() {
+    let mut room = "courtyard";
+    let mut key = false;
+    println!("You are in a courtyard. Commands: north, take, unlock, quit");
+    for line in io::stdin().lock().lines() {
+        let c = line.unwrap_or_default();
+        if c == "north" && room == "courtyard" {
+            room = "library"
+        } else if c == "take" && room == "library" {
+            key = true;
+            println!("Taken: brass key")
+        } else if c == "unlock" && key {
+            println!("Door unlocked. You escaped!");
+            return;
+        } else if c == "quit" {
+            return;
+        } else {
+            println!("Nothing happens")
+        }
+        println!("room: {room}");
+    }
+}

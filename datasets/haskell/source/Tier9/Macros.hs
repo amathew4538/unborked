@@ -13,5 +13,5 @@ main = do
   putStrLn ("feature=Macros value=" ++ show value ++ " result=" ++ show (applyFeature value))
 
 headOrDefault :: [String] -> String
-headOrDefault (x:_) = x
+headOrDefault (x : _) = x
 headOrDefault [] = "42"

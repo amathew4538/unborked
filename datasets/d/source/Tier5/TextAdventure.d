@@ -1,6 +1,7 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     writeln("room: courtyard");
     writeln("action: north");
     writeln("room: library");

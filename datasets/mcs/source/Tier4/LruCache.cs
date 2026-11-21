@@ -1,1 +1,3 @@
-using System; using System.Collections.Generic; class LruCache { static void Main(){var c=new Dictionary<char,int>{{'A',1},{'B',2},{'C',3}};Console.WriteLine("A="+(c.ContainsKey('A')?c['A']:-1));Console.WriteLine("B="+(c.ContainsKey('B')?c['B']:-1));c['D']=4;Console.WriteLine("D="+c['D']);}}
+using System;
+using System.Collections.Generic;
+class LruCache { static void Main() { var c = new Dictionary<char, int> { { 'A', 1 }, { 'B', 2 }, { 'C', 3 } }; Console.WriteLine("A=" + (c.ContainsKey('A') ? c['A'] : -1)); Console.WriteLine("B=" + (c.ContainsKey('B') ? c['B'] : -1)); c['D'] = 4; Console.WriteLine("D=" + c['D']); } }

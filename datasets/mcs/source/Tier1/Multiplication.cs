@@ -3,7 +3,8 @@ namespace Tier1
 {
     class Multiplication
     {
-        static int Multiply(int a, int b) {
+        static int Multiply(int a, int b)
+        {
             return a * b;
         }
 

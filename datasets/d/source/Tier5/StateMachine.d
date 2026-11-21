@@ -1,6 +1,7 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     writeln("state: IDLE");
     writeln("state: RUNNING");
     writeln("state: PAUSED");

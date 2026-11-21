@@ -1,1 +1,2 @@
-using System; class PrimeSieve { static void Main(string[]a){int n=a.Length>0?int.Parse(a[0]):30;var p=new bool[n+1];Array.Fill(p,true);p[0]=p[1]=false;for(int i=2;i*i<=n;i++)if(p[i])for(int j=i*i;j<=n;j+=i)p[j]=false;Console.Write("primes:");for(int i=2;i<=n;i++)if(p[i])Console.Write(" "+i);Console.WriteLine();}}
+using System;
+class PrimeSieve { static void Main(string[] a) { int n = a.Length > 0 ? int.Parse(a[0]) : 30; var p = new bool[n + 1]; Array.Fill(p, true); p[0] = p[1] = false; for (int i = 2; i * i <= n; i++) if (p[i]) for (int j = i * i; j <= n; j += i) p[j] = false; Console.Write("primes:"); for (int i = 2; i <= n; i++) if (p[i]) Console.Write(" " + i); Console.WriteLine(); } }

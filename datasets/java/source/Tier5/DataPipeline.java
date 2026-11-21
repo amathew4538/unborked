@@ -1,1 +1,25 @@
-import java.util.*; public class DataPipeline { public static void main(String[] a){Scanner in=new Scanner(System.in);int valid=0,invalid=0,total=0;System.out.println("Enter name,amount rows");while(in.hasNextLine()){String s=in.nextLine().trim();if(s.isEmpty())break;String[] p=s.split(",");try{int n=Integer.parseInt(p[1].trim());valid++;total+=n;System.out.println("accepted "+p[0].trim()+": "+n);}catch(Exception e){invalid++;System.out.println("rejected: "+s);}}System.out.printf("summary valid=%d invalid=%d total=%d%n",valid,invalid,total);}}
+import java.util.*;
+
+public class DataPipeline {
+    public static void main(String[] a) {
+        Scanner in = new Scanner(System.in);
+        int valid = 0, invalid = 0, total = 0;
+        System.out.println("Enter name,amount rows");
+        while (in.hasNextLine()) {
+            String s = in.nextLine().trim();
+            if (s.isEmpty())
+                break;
+            String[] p = s.split(",");
+            try {
+                int n = Integer.parseInt(p[1].trim());
+                valid++;
+                total += n;
+                System.out.println("accepted " + p[0].trim() + ": " + n);
+            } catch (Exception e) {
+                invalid++;
+                System.out.println("rejected: " + s);
+            }
+        }
+        System.out.printf("summary valid=%d invalid=%d total=%d%n", valid, invalid, total);
+    }
+}

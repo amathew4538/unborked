@@ -1,6 +1,7 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     writeln("X O X");
     writeln("O X O");
     writeln("X O X");

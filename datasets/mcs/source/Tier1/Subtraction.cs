@@ -3,7 +3,8 @@ namespace Tier1
 {
     class Subtraction
     {
-        static int Subtract(int a, int b) {
+        static int Subtract(int a, int b)
+        {
             return a - b;
         }
 

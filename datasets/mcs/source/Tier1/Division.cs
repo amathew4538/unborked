@@ -4,7 +4,8 @@ namespace Tier1
     class Division
 
     {
-        static int Divide(int a, int b) {
+        static int Divide(int a, int b)
+        {
             return a / b;
         }
 

@@ -1,1 +1,10 @@
-public class GarbageCollection {public static void main(String[]args){Runtime runtime=Runtime.getRuntime();byte[] report=new byte[4096];report[0]=1;System.out.println("heap_free="+runtime.freeMemory()+" report_bytes="+report.length);runtime.gc();System.out.println("gc_complete=true");}}
+public class GarbageCollection {
+    public static void main(String[] args) {
+        Runtime runtime = Runtime.getRuntime();
+        byte[] report = new byte[4096];
+        report[0] = 1;
+        System.out.println("heap_free=" + runtime.freeMemory() + " report_bytes=" + report.length);
+        runtime.gc();
+        System.out.println("gc_complete=true");
+    }
+}

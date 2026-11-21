@@ -8,11 +8,13 @@ namespace Tier1
             Console.WriteLine("Hello from the void function");
         }
 
-        static string ReturnFunction() {
+        static string ReturnFunction()
+        {
             return "Hello from the return function.";
         }
 
-        static int ParameterFunction(int a) {
+        static int ParameterFunction(int a)
+        {
             return a + 1;
         }
 

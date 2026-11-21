@@ -1,1 +1,10 @@
-import java.nio.file.*; public class FileSystem { public static void main(String[] a)throws Exception{Path p=Path.of(a.length>0?a[0]:"unborked.conf");Files.writeString(p,"log_level=info\ntheme=dark\n");System.out.println(p+":\n"+Files.readString(p));Files.deleteIfExists(p);}}
+import java.nio.file.*;
+
+public class FileSystem {
+    public static void main(String[] a) throws Exception {
+        Path p = Path.of(a.length > 0 ? a[0] : "unborked.conf");
+        Files.writeString(p, "log_level=info\ntheme=dark\n");
+        System.out.println(p + ":\n" + Files.readString(p));
+        Files.deleteIfExists(p);
+    }
+}

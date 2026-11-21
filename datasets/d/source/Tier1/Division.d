@@ -1,10 +1,12 @@
 import std.stdio;
 
-int divide(int a, int b) {
+int divide(int a, int b)
+{
     return a / b;
 }
 
-void main() {
+void main()
+{
     writeln(divide(0, 1));
     writeln(divide(7, 13));
     writeln(divide(65_536, 1000));

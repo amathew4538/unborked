@@ -1,1 +1,15 @@
-import java.util.*; public class Calculator { public static void main(String[] a){Scanner in=new Scanner(System.in);double x=a.length>0?Double.parseDouble(a[0]):8,y=a.length>1?Double.parseDouble(a[1]):2;char op=a.length>2?a[2].charAt(0):'+';double r=op=='+'?x+y:op=='-'?x-y:op=='*'?x*y:x/y;if(op=='/'&&y==0){System.out.println("division by zero");return;}System.out.printf("%.2f %c %.2f = %.2f%n",x,op,y,r);}}
+import java.util.*;
+
+public class Calculator {
+    public static void main(String[] a) {
+        Scanner in = new Scanner(System.in);
+        double x = a.length > 0 ? Double.parseDouble(a[0]) : 8, y = a.length > 1 ? Double.parseDouble(a[1]) : 2;
+        char op = a.length > 2 ? a[2].charAt(0) : '+';
+        double r = op == '+' ? x + y : op == '-' ? x - y : op == '*' ? x * y : x / y;
+        if (op == '/' && y == 0) {
+            System.out.println("division by zero");
+            return;
+        }
+        System.out.printf("%.2f %c %.2f = %.2f%n", x, op, y, r);
+    }
+}

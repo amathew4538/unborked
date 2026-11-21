@@ -1,7 +1,9 @@
 import std.stdio;
 
-void main() {
+void main()
+{
     int sum = 0;
-    foreach (i; 1 .. 6) sum += i;
+    foreach (i; 1 .. 6)
+        sum += i;
     writeln(sum);
 }

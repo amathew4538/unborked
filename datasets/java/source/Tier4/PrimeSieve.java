@@ -1,1 +1,17 @@
-public class PrimeSieve { public static void main(String[] a){int n=a.length>0?Integer.parseInt(a[0]):30;boolean[] p=new boolean[n+1];java.util.Arrays.fill(p,true);p[0]=p[1]=false;for(int i=2;i*i<=n;i++)if(p[i])for(int j=i*i;j<=n;j+=i)p[j]=false;System.out.print("primes:");for(int i=2;i<=n;i++)if(p[i])System.out.print(" "+i);System.out.println();}}
+public class PrimeSieve {
+    public static void main(String[] a) {
+        int n = a.length > 0 ? Integer.parseInt(a[0]) : 30;
+        boolean[] p = new boolean[n + 1];
+        java.util.Arrays.fill(p, true);
+        p[0] = p[1] = false;
+        for (int i = 2; i * i <= n; i++)
+            if (p[i])
+                for (int j = i * i; j <= n; j += i)
+                    p[j] = false;
+        System.out.print("primes:");
+        for (int i = 2; i <= n; i++)
+            if (p[i])
+                System.out.print(" " + i);
+        System.out.println();
+    }
+}

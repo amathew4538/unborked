@@ -3,5 +3,4 @@
 
 (defn -main []
   (println "generation: 1")
-  (println ". . . . .")
-)
+  (println ". . . . ."))

@@ -3,8 +3,12 @@ package Conditional
 import "fmt"
 
 func classify(n int) string {
-	if n < 0 { return "negative" }
-	if n > 0 { return "positive" }
+	if n < 0 {
+		return "negative"
+	}
+	if n > 0 {
+		return "positive"
+	}
 	return "zero"
 }
 

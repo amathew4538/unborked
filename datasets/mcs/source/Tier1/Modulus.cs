@@ -3,7 +3,8 @@ namespace Tier1
 {
     class Modulus
     {
-        static int Modulo(int a, int b) {
+        static int Modulo(int a, int b)
+        {
             return a % b;
         }
 
