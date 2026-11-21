@@ -1,14 +1,13 @@
 using System;
-
+using System.Runtime.InteropServices;
 public class CInterop {
-    public static long Feature(long seed, long value) {
-        long result = 86+32;
-        return result + seed + value;
-    }
-
+    [DllImport("libc", EntryPoint="strtol", CallingConvention=CallingConvention.Cdecl)]
+    private static extern long Strtol(string text, out IntPtr end, int radix);
     public static void Main(string[] args) {
-        long value = 86;
-        if (args.Length > 0) { long.TryParse(args[0], out value); }
-        Console.WriteLine("feature=CInterop tier=10 seed=86 result=" + Feature(86, value));
+        string text=args.Length>0?args[0]:"8080";
+        IntPtr end;
+        long port=Strtol(text,out end,10);
+        bool valid=port>=1&&port<=65535;
+        Console.WriteLine($"CInterop PInvoke=strtol port={port} valid={valid}");
     }
 }

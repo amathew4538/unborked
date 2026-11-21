@@ -129,7 +129,7 @@ def export_pyarrow(rows, output: Path, shard_size: int) -> list[Path]:
     shard = []
     paths: list[Path] = []
 
-    for index, row in enumerate(rows, start=1):
+    for row in rows:
         shard.append(row)
         if len(shard) == shard_size:
             path = output / f"dataset-{len(paths):05d}.parquet"

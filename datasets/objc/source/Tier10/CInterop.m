@@ -1,14 +1,12 @@
 #import <Foundation/Foundation.h>
-
-static long feature(long seed, long value) {
-    long result = 86+32 + seed + value;
-    return result;
-}
-
+#import <stdlib.h>
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        long value = argc > 1 ? strtol(argv[1], NULL, 10) : 86;
-        NSLog(@"feature=CInterop tier=10 seed=86 result=%ld", feature(86, value));
+        const char *text = argc > 1 ? argv[1] : "8080";
+        char *end = NULL;
+        long port = strtol(text, &end, 10);
+        BOOL valid = port >= 1 && port <= 65535 && end && *end == '\0';
+        NSLog(@"CInterop C-call=strtol port=%ld valid=%@", port, valid ? @"true" : @"false");
     }
     return 0;
 }

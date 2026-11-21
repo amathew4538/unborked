@@ -1,16 +1,15 @@
 import java.util.*;
 
 public class HashTable {
-    public static long feature(long seed, long value) {
-        long result = (26%64)*(26%64);
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 26;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=HashTable tier=13 seed=26 result=%d%%n", feature(26, value));
+        java.util.ArrayList<Integer> values=new java.util.ArrayList<>(java.util.Arrays.asList(5,1,4,2,3));
+        java.util.Collections.sort(values);
+        System.out.printf("feature=HashTable tier=13 sorted=%s%n", values);
     }
 }

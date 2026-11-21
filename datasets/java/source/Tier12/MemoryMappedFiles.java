@@ -1,16 +1,14 @@
 import java.util.*;
 
 public class MemoryMappedFiles {
-    public static long feature(long seed, long value) {
-        long result = 54%1024;
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 54;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=MemoryMappedFiles tier=12 seed=54 result=%d%%n", feature(54, value));
+        String input=args.length>0?args[0]:"status=ok";
+        System.out.printf("feature=MemoryMappedFiles tier=12 input=%s bytes=%d%n", input, input.getBytes(java.nio.charset.StandardCharsets.UTF_8).length);
     }
 }

@@ -19,7 +19,10 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-import zstandard
+try:
+    import zstandard
+except ImportError:
+    zstandard = None
 
 USE_COLOR = sys.stdout.isatty()
 GREEN = "\033[92m" if USE_COLOR else ""
@@ -1468,7 +1471,7 @@ def compress_artifacts(
 
     allowed = set(active_languages)
     compressed = 0
-    for language, config in LANGUAGES.items():
+    for language in LANGUAGES:
         if language not in allowed:
             continue
         for artifact_type in ("bin", "asm"):
@@ -1499,6 +1502,29 @@ def compress_artifacts(
                 if delete_original:
                     path.unlink()
     return compressed
+
+
+def clean_compiled_artifacts(active_languages) -> int:
+    """Remove bin/asm outputs after source/export data has been preserved."""
+    removed = 0
+    allowed = set(active_languages)
+    for language in LANGUAGES:
+        if language not in allowed:
+            continue
+        for artifact_type in ("bin", "asm"):
+            root = DATASETS / language / artifact_type
+            if not root.is_dir():
+                continue
+            for path in sorted(root.rglob("*"), reverse=True):
+                if path.is_file():
+                    path.unlink()
+                    removed += 1
+                elif path.is_dir():
+                    try:
+                        path.rmdir()
+                    except OSError:
+                        pass
+    return removed
 
 
 def clean_files():
@@ -1696,6 +1722,11 @@ def main() -> int:
         default="hf-dataset",
         help="Output directory for Parquet export",
     )
+    parser.add_argument(
+        "--clean-artifacts-after-export",
+        action="store_true",
+        help="Delete bin/asm outputs after Zstandard and/or Parquet export",
+    )
     args = parser.parse_args()
 
     try:
@@ -1741,6 +1772,15 @@ def main() -> int:
                 ],
                 verbose=args.verbose,
             )
+        if args.clean_artifacts_after_export:
+            if not args.zstd and not args.parquet:
+                print(
+                    f"{RED}--clean-artifacts-after-export requires "
+                    f"--zstd or --parquet.{RESET}"
+                )
+                return 1
+            removed = clean_compiled_artifacts(args.languages)
+            print(f"{GREEN}Removed {removed} compiled artifact files.{RESET}")
 
     except MissingSourceError as e:
         print(str(e))

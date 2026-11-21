@@ -1,18 +1,14 @@
+{-# LANGUAGE ForeignFunctionInterface #-}
 module CInterop where
-
 import System.Environment (getArgs)
-import Text.Read (readMaybe)
-
-feature :: Int -> Int -> Int
-feature seed value = 1086 + seed + value
-
+import Foreign.C.String (CString, newCString)
+import Foreign.C.Types (CChar, CInt, CLong)
+import Foreign.Ptr (Ptr, nullPtr)
+foreign import ccall "strtol" c_strtol :: CString -> Ptr (Ptr CChar) -> CInt -> IO CLong
 main :: IO ()
 main = do
   args <- getArgs
-  let seed = 86
-  let value = maybe seed id (readMaybe (headOrDefault args) :: Maybe Int)
-  putStrLn ("feature=CInterop tier=10 seed=" ++ show seed ++ " result=" ++ show (feature seed value))
-
-headOrDefault :: [String] -> String
-headOrDefault (x:_) = x
-headOrDefault [] = "86"
+  text <- newCString (if null args then "8080" else head args)
+  port <- c_strtol text nullPtr 10
+  let portValue = fromIntegral port :: Integer
+  putStrLn ("CInterop FFI=strtol port=" ++ show portValue ++ " valid=" ++ show (portValue >= 1 && portValue <= 65535))

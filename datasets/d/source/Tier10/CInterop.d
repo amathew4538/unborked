@@ -1,11 +1,9 @@
-import std.conv : to;
+import core.stdc.stdlib : strtol;
 import std.stdio : writeln;
-
-long feature(long seed, long value) {
-    long result = 86+32;
-    return result + seed + value;
-}
+import std.string : toStringz;
 void main(string[] args) {
-    long value = args.length > 1 ? args[1].to!long : 86;
-    writeln("feature=CInterop tier=10 seed=86 result=", feature(86, value));
+    auto text = args.length > 1 ? args[1] : "8080";
+    char* end = null;
+    long port = strtol(toStringz(text), &end, 10);
+    writeln("CInterop extern(C)=strtol port=", port, " valid=", port >= 1 && port <= 65535);
 }

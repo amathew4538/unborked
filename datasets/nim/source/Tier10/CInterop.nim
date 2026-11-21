@@ -1,9 +1,8 @@
 import std/[os, strutils]
 
-proc feature(seed, value: int64): int64 =
-  1086i64 + seed + value
+proc strtol(text: cstring, endPtr: ptr cstring, radix: cint): clong {.importc, header: "<stdlib.h>".}
 
-var value = 86i64
-if paramCount() > 0:
-  value = parseBiggestInt(paramStr(1))
-echo "feature=CInterop tier=10 seed=86 result=", feature(86i64, value)
+let text = if paramCount() > 0: paramStr(1) else: "8080"
+var endPtr: cstring = nil
+let port = strtol(text.cstring, addr endPtr, 10)
+echo "CInterop importc=strtol port=", port, " valid=", port >= 1 and port <= 65535
