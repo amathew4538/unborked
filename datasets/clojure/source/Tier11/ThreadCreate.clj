@@ -1,9 +1,9 @@
 (ns Tier11.ThreadCreate
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1114 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ThreadCreate" value)))
+  (let [value (try (Long/parseLong (or (first args) "14")) (catch Exception _ 14))]
+    (println (str "feature=ThreadCreate tier=11 seed=14 result=" (feature value)))))

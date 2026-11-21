@@ -1,9 +1,9 @@
 (ns Tier10.DynamicInitialization
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1077 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "DynamicInitialization" value)))
+  (let [value (try (Long/parseLong (or (first args) "77")) (catch Exception _ 77))]
+    (println (str "feature=DynamicInitialization tier=10 seed=77 result=" (feature value)))))

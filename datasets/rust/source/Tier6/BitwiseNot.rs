@@ -1,6 +1,9 @@
-use std::env;
+fn feature_82(value: i64) -> i64 {
+    let result = 82*17+3;
+    result + value
+}
+
 fn main() {
-    let input = env::args().nth(1).unwrap_or_else(|| "42".into());
-    let value: i64 = input.parse().unwrap_or(42);
-    println!("feature=BitwiseNot value={} bits={:b}", value, value as u64);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(82);
+    println!("feature=BitwiseNot tier=6 seed=82 result={}", feature_82(value));
 }

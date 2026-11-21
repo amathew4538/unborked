@@ -1,9 +1,9 @@
 (ns Tier14.ConstantPropagation
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1475 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ConstantPropagation" value)))
+  (let [value (try (Long/parseLong (or (first args) "75")) (catch Exception _ 75))]
+    (println (str "feature=ConstantPropagation tier=14 seed=75 result=" (feature value)))))

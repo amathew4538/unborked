@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 94
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 94
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=OutOfBoundsAccess value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=OutOfBoundsAccess tier=15 seed=94 result=' + feature(94, value).str())
 }

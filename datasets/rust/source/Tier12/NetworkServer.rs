@@ -1,11 +1,9 @@
-use std::env;
-use std::io::{self, Read};
+fn feature_0(value: i64) -> i64 {
+    let result = 0%1024;
+    result + value
+}
+
 fn main() {
-    let mut data = String::new();
-    let _ = io::stdin().read_to_string(&mut data);
-    println!(
-        "feature=NetworkServer args={:?} stdin_bytes={}",
-        env::args().collect::<Vec<_>>(),
-        data.len()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(0);
+    println!("feature=NetworkServer tier=12 seed=0 result={}", feature_0(value));
 }

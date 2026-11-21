@@ -1,5 +1,9 @@
+fn feature_16(value: i64) -> i64 {
+    let result = (16%64)*(16%64);
+    result + value
+}
+
 fn main() {
-    let mut values = vec![5, 1, 4, 2, 3];
-    values.sort();
-    println!("feature=MergeSort sorted={:?}", values);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(16);
+    println!("feature=MergeSort tier=13 seed=16 result={}", feature_16(value));
 }

@@ -1,6 +1,6 @@
 @main def main(args: String*): Unit = {
-  val value =
-    args.headOption.flatMap(v => scala.util.Try(v.toInt).toOption).getOrElse(42)
-  val result = value * value + 3
-  println(s"feature=Trie value=$value result=$result")
+  val seed = 61L
+  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
+  val result = ((61%64)*(61%64)) + seed + value
+  println(s"feature=Trie tier=13 seed=$seed result=$result")
 }

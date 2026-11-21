@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 34
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 34
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=Spinlock value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=Spinlock tier=11 seed=34 result=' + feature(34, value).str())
 }

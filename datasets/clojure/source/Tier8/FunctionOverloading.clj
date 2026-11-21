@@ -1,9 +1,9 @@
 (ns Tier8.FunctionOverloading
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 820 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FunctionOverloading" value)))
+  (let [value (try (Long/parseLong (or (first args) "20")) (catch Exception _ 20))]
+    (println (str "feature=FunctionOverloading tier=8 seed=20 result=" (feature value)))))

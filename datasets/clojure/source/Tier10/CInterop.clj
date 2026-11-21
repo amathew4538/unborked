@@ -1,9 +1,9 @@
 (ns Tier10.CInterop
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1086 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "CInterop" value)))
+  (let [value (try (Long/parseLong (or (first args) "86")) (catch Exception _ 86))]
+    (println (str "feature=CInterop tier=10 seed=86 result=" (feature value)))))

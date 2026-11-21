@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = 16%1024
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=BufferedIO value=\(value) result=\(applyFeature(value))")
+let seed = 16
+let value = Int(CommandLine.arguments.dropFirst().first ?? "16") ?? seed
+print("feature=BufferedIO tier=12 seed=\(seed) result=\(feature(seed, value))")

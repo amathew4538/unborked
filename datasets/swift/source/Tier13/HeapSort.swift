@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (37%64)*(37%64)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=HeapSort value=\(value) result=\(applyFeature(value))")
+let seed = 37
+let value = Int(CommandLine.arguments.dropFirst().first ?? "37") ?? seed
+print("feature=HeapSort tier=13 seed=\(seed) result=\(feature(seed, value))")

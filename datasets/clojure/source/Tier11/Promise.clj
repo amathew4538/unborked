@@ -1,9 +1,9 @@
 (ns Tier11.Promise
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1189 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Promise" value)))
+  (let [value (try (Long/parseLong (or (first args) "89")) (catch Exception _ 89))]
+    (println (str "feature=Promise tier=11 seed=89 result=" (feature value)))))

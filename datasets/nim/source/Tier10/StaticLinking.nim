@@ -1,6 +1,9 @@
-import std/[strutils, os]
+import std/[os, strutils]
 
-proc applyFeature(value: int): int = value * value + 3
+proc feature(seed, value: int64): int64 =
+  1026i64 + seed + value
 
-let value = if paramCount() > 0: parseInt(paramStr(1)) else: 42
-echo "feature=StaticLinking value=", value, " result=", applyFeature(value)
+var value = 26i64
+if paramCount() > 0:
+  value = parseBiggestInt(paramStr(1))
+echo "feature=StaticLinking tier=10 seed=26 result=", feature(26i64, value)

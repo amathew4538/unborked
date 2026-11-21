@@ -1,9 +1,9 @@
 (ns Tier15.UnreachableCode
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1535 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "UnreachableCode" value)))
+  (let [value (try (Long/parseLong (or (first args) "35")) (catch Exception _ 35))]
+    (println (str "feature=UnreachableCode tier=15 seed=35 result=" (feature value)))))

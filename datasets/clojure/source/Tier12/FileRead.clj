@@ -1,9 +1,9 @@
 (ns Tier12.FileRead
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1211 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FileRead" value)))
+  (let [value (try (Long/parseLong (or (first args) "11")) (catch Exception _ 11))]
+    (println (str "feature=FileRead tier=12 seed=11 result=" (feature value)))))

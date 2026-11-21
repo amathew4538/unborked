@@ -1,9 +1,9 @@
 (ns Tier8.Labels
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 864 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Labels" value)))
+  (let [value (try (Long/parseLong (or (first args) "64")) (catch Exception _ 64))]
+    (println (str "feature=Labels tier=8 seed=64 result=" (feature value)))))

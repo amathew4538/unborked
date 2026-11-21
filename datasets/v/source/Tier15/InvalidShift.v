@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 18
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 18
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=InvalidShift value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=InvalidShift tier=15 seed=18 result=' + feature(18, value).str())
 }

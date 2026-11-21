@@ -1,9 +1,9 @@
 (ns Tier8.Lambda
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 834 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Lambda" value)))
+  (let [value (try (Long/parseLong (or (first args) "34")) (catch Exception _ 34))]
+    (println (str "feature=Lambda tier=8 seed=34 result=" (feature value)))))

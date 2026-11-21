@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (84%16)*4
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=MemoryPadding value=\(value) result=\(applyFeature(value))")
+let seed = 84
+let value = Int(CommandLine.arguments.dropFirst().first ?? "84") ?? seed
+print("feature=MemoryPadding tier=7 seed=\(seed) result=\(feature(seed, value))")

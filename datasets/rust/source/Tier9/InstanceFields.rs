@@ -1,15 +1,9 @@
-trait Report {
-    fn render(&self) -> String;
+fn feature_75(value: i64) -> i64 {
+    let result = (75%11)+40;
+    result + value
 }
-struct Inventory {
-    items: i32,
-}
-impl Report for Inventory {
-    fn render(&self) -> String {
-        format!("items={}", self.items)
-    }
-}
+
 fn main() {
-    let report: Box<dyn Report> = Box::new(Inventory { items: 5 });
-    println!("feature=InstanceFields report={}", report.render());
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(75);
+    println!("feature=InstanceFields tier=9 seed=75 result={}", feature_75(value));
 }

@@ -1,9 +1,9 @@
 (ns Tier10.GlobalVariables
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1066 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "GlobalVariables" value)))
+  (let [value (try (Long/parseLong (or (first args) "66")) (catch Exception _ 66))]
+    (println (str "feature=GlobalVariables tier=10 seed=66 result=" (feature value)))))

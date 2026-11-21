@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = 20+((20%5)*7)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=FunctionOverloading value=\(value) result=\(applyFeature(value))")
+let seed = 20
+let value = Int(CommandLine.arguments.dropFirst().first ?? "20") ?? seed
+print("feature=FunctionOverloading tier=8 seed=\(seed) result=\(feature(seed, value))")

@@ -1,9 +1,9 @@
 (ns Tier13.Deque
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1330 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Deque" value)))
+  (let [value (try (Long/parseLong (or (first args) "30")) (catch Exception _ 30))]
+    (println (str "feature=Deque tier=13 seed=30 result=" (feature value)))))

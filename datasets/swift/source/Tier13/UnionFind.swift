@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (87%64)*(87%64)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=UnionFind value=\(value) result=\(applyFeature(value))")
+let seed = 87
+let value = Int(CommandLine.arguments.dropFirst().first ?? "87") ?? seed
+print("feature=UnionFind tier=13 seed=\(seed) result=\(feature(seed, value))")

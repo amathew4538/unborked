@@ -1,9 +1,14 @@
 using System;
-public class SignedOverflow
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=SignedOverflow args=" + args.Length + " sum=" + sum);
+
+public class SignedOverflow {
+    public static long Feature(long seed, long value) {
+        long result = 100/((65%9)+1);
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 65;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=SignedOverflow tier=15 seed=65 result=" + Feature(65, value));
     }
 }

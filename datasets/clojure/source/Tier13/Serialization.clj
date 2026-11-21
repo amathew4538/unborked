@@ -1,9 +1,9 @@
 (ns Tier13.Serialization
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1344 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Serialization" value)))
+  (let [value (try (Long/parseLong (or (first args) "44")) (catch Exception _ 44))]
+    (println (str "feature=Serialization tier=13 seed=44 result=" (feature value)))))

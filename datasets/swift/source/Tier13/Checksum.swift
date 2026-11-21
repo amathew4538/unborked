@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (10%64)*(10%64)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=Checksum value=\(value) result=\(applyFeature(value))")
+let seed = 10
+let value = Int(CommandLine.arguments.dropFirst().first ?? "10") ?? seed
+print("feature=Checksum tier=13 seed=\(seed) result=\(feature(seed, value))")

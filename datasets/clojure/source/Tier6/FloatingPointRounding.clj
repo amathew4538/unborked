@@ -1,9 +1,9 @@
 (ns Tier6.FloatingPointRounding
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 687 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FloatingPointRounding" value)))
+  (let [value (try (Long/parseLong (or (first args) "87")) (catch Exception _ 87))]
+    (println (str "feature=FloatingPointRounding tier=6 seed=87 result=" (feature value)))))

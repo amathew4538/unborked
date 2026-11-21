@@ -1,13 +1,11 @@
 import std.conv : to;
 import std.stdio : writeln;
 
-int applyFeature(int value)
-{
-    return value * value + 3;
+long feature(long seed, long value) {
+    long result = 21*17+3;
+    return result + seed + value;
 }
-
-void main(string[] args)
-{
-    int value = args.length > 1 ? args[1].to!int : 42;
-    writeln("feature=FloatingPoint value=", value, " result=", applyFeature(value));
+void main(string[] args) {
+    long value = args.length > 1 ? args[1].to!long : 21;
+    writeln("feature=FloatingPoint tier=6 seed=21 result=", feature(21, value));
 }

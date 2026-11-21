@@ -1,9 +1,14 @@
 using System;
-public class Modules
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=Modules args=" + args.Length + " sum=" + sum);
+
+public class Modules {
+    public static long Feature(long seed, long value) {
+        long result = (11%11)+40;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 11;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=Modules tier=9 seed=11 result=" + Feature(11, value));
     }
 }

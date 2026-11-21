@@ -1,12 +1,20 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "os"
+    "strconv"
+)
 
-type Report interface{ Render() string }
-type Inventory struct{ Items int }
+func feature(seed int64, value int64) int64 {
+    result := int64((30%11)+40)
+    return result + value + seed
+}
 
-func (i Inventory) Render() string { return fmt.Sprintf("items=%d", i.Items) }
 func main() {
-	var r Report = Inventory{Items: 5}
-	fmt.Printf("feature=%s report=%s\n", "StaticMethods", r.Render())
+    value := int64(30)
+    if len(os.Args) > 1 {
+        if parsed, err := strconv.ParseInt(os.Args[1], 10, 64); err == nil { value = parsed }
+    }
+    fmt.Printf("feature=StaticMethods tier=9 seed=30 result=%d\n", feature(30, value))
 }

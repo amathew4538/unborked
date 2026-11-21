@@ -1,9 +1,9 @@
 (ns Tier15.ConstantExpression
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1528 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ConstantExpression" value)))
+  (let [value (try (Long/parseLong (or (first args) "28")) (catch Exception _ 28))]
+    (println (str "feature=ConstantExpression tier=15 seed=28 result=" (feature value)))))

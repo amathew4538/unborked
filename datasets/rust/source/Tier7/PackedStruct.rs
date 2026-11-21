@@ -1,9 +1,9 @@
+fn feature_45(value: i64) -> i64 {
+    let result = (45%16)*4;
+    result + value
+}
+
 fn main() {
-    let mut records = vec![("Ada", 12u32), ("Lin", 21u32)];
-    records.sort_by_key(|record| record.1);
-    println!(
-        "feature=PackedStruct records={:?} heap_bytes={}",
-        records,
-        records.len() * std::mem::size_of::<(&str, u32)>()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(45);
+    println!("feature=PackedStruct tier=7 seed=45 result={}", feature_45(value));
 }

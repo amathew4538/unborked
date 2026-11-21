@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 92
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 92
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=DivisionByZero value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=DivisionByZero tier=15 seed=92 result=' + feature(92, value).str())
 }

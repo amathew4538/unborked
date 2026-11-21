@@ -1,6 +1,9 @@
-import std/[strutils, os]
+import std/[os, strutils]
 
-proc applyFeature(value: int): int = value * value + 3
+proc feature(seed, value: int64): int64 =
+  1331i64 + seed + value
 
-let value = if paramCount() > 0: parseInt(paramStr(1)) else: 42
-echo "feature=AvlTree value=", value, " result=", applyFeature(value)
+var value = 31i64
+if paramCount() > 0:
+  value = parseBiggestInt(paramStr(1))
+echo "feature=AvlTree tier=13 seed=31 result=", feature(31i64, value)

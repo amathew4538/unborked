@@ -1,9 +1,9 @@
 (ns Tier11.ThreadLocalVariables
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1100 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ThreadLocalVariables" value)))
+  (let [value (try (Long/parseLong (or (first args) "0")) (catch Exception _ 0))]
+    (println (str "feature=ThreadLocalVariables tier=11 seed=0 result=" (feature value)))))

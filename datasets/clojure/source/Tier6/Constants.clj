@@ -1,9 +1,9 @@
 (ns Tier6.Constants
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 627 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Constants" value)))
+  (let [value (try (Long/parseLong (or (first args) "27")) (catch Exception _ 27))]
+    (println (str "feature=Constants tier=6 seed=27 result=" (feature value)))))

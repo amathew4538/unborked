@@ -1,6 +1,9 @@
-import std/[strutils, os]
+import std/[os, strutils]
 
-proc applyFeature(value: int): int = value * value + 3
+proc feature(seed, value: int64): int64 =
+  638i64 + seed + value
 
-let value = if paramCount() > 0: parseInt(paramStr(1)) else: 42
-echo "feature=BitwiseShift value=", value, " result=", applyFeature(value)
+var value = 38i64
+if paramCount() > 0:
+  value = parseBiggestInt(paramStr(1))
+echo "feature=BitwiseShift tier=6 seed=38 result=", feature(38i64, value)

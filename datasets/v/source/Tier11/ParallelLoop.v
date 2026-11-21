@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 71
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 71
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=ParallelLoop value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=ParallelLoop tier=11 seed=71 result=' + feature(71, value).str())
 }

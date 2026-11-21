@@ -1,9 +1,14 @@
 using System;
-public class SocketTCP
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=SocketTCP args=" + args.Length + " sum=" + sum);
+
+public class SocketTCP {
+    public static long Feature(long seed, long value) {
+        long result = 1%1024;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 1;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=SocketTCP tier=12 seed=1 result=" + Feature(1, value));
     }
 }

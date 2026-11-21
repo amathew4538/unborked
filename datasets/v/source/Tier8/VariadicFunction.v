@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 93
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 93
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=VariadicFunction value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=VariadicFunction tier=8 seed=93 result=' + feature(93, value).str())
 }

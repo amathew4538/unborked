@@ -1,7 +1,9 @@
-fn apply<F: Fn(i32) -> i32>(f: F, x: i32) -> i32 {
-    f(x)
+fn feature_93(value: i64) -> i64 {
+    let result = 93+((93%5)*7);
+    result + value
 }
+
 fn main() {
-    let result = apply(|x| x * x + 3, 7);
-    println!("feature=VariadicFunction result={}", result);
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(93);
+    println!("feature=VariadicFunction tier=8 seed=93 result={}", feature_93(value));
 }

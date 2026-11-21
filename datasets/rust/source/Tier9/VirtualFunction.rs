@@ -1,15 +1,9 @@
-trait Report {
-    fn render(&self) -> String;
+fn feature_81(value: i64) -> i64 {
+    let result = (81%11)+40;
+    result + value
 }
-struct Inventory {
-    items: i32,
-}
-impl Report for Inventory {
-    fn render(&self) -> String {
-        format!("items={}", self.items)
-    }
-}
+
 fn main() {
-    let report: Box<dyn Report> = Box::new(Inventory { items: 5 });
-    println!("feature=VirtualFunction report={}", report.render());
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(81);
+    println!("feature=VirtualFunction tier=9 seed=81 result={}", feature_81(value));
 }

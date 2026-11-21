@@ -1,12 +1,14 @@
 #import <Foundation/Foundation.h>
 
-static long applyFeature(long value) { return value * value + 3; }
+static long feature(long seed, long value) {
+    long result = 76+32 + seed + value;
+    return result;
+}
 
-int main(int argc, const char *argv[]) {
-  @autoreleasepool {
-    long value = argc > 1 ? strtol(argv[1], NULL, 10) : 42;
-    NSLog(@"feature=VariadicABI value=%ld result=%ld", value,
-          applyFeature(value));
-  }
-  return 0;
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        long value = argc > 1 ? strtol(argv[1], NULL, 10) : 76;
+        NSLog(@"feature=VariadicABI tier=10 seed=76 result=%ld", feature(76, value));
+    }
+    return 0;
 }

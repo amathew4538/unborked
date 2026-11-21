@@ -1,9 +1,9 @@
 (ns Tier8.TailCall
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 870 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "TailCall" value)))
+  (let [value (try (Long/parseLong (or (first args) "70")) (catch Exception _ 70))]
+    (println (str "feature=TailCall tier=8 seed=70 result=" (feature value)))))

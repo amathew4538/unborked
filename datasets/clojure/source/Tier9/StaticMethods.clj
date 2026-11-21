@@ -1,9 +1,9 @@
 (ns Tier9.StaticMethods
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 930 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "StaticMethods" value)))
+  (let [value (try (Long/parseLong (or (first args) "30")) (catch Exception _ 30))]
+    (println (str "feature=StaticMethods tier=9 seed=30 result=" (feature value)))))

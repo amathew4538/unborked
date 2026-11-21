@@ -1,9 +1,14 @@
 using System;
-public class ForeignFunctionInterface
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=ForeignFunctionInterface args=" + args.Length + " sum=" + sum);
+
+public class ForeignFunctionInterface {
+    public static long Feature(long seed, long value) {
+        long result = 73+32;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 73;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=ForeignFunctionInterface tier=10 seed=73 result=" + Feature(73, value));
     }
 }

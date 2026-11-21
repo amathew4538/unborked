@@ -1,6 +1,6 @@
 @main def main(args: String*): Unit = {
-  val value =
-    args.headOption.flatMap(v => scala.util.Try(v.toInt).toOption).getOrElse(42)
-  val result = value * value + 3
-  println(s"feature=TailRecursion value=$value result=$result")
+  val seed = 63L
+  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
+  val result = (63+((63%5)*7)) + seed + value
+  println(s"feature=TailRecursion tier=8 seed=$seed result=$result")
 }

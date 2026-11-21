@@ -1,13 +1,11 @@
 import std.conv : to;
 import std.stdio : writeln;
 
-int applyFeature(int value)
-{
-    return value * value + 3;
+long feature(long seed, long value) {
+    long result = 21+32;
+    return result + seed + value;
 }
-
-void main(string[] args)
-{
-    int value = args.length > 1 ? args[1].to!int : 42;
-    writeln("feature=ThreadLocalStorage value=", value, " result=", applyFeature(value));
+void main(string[] args) {
+    long value = args.length > 1 ? args[1].to!long : 21;
+    writeln("feature=ThreadLocalStorage tier=10 seed=21 result=", feature(21, value));
 }

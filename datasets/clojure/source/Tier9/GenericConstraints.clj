@@ -1,9 +1,9 @@
 (ns Tier9.GenericConstraints
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 976 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "GenericConstraints" value)))
+  (let [value (try (Long/parseLong (or (first args) "76")) (catch Exception _ 76))]
+    (println (str "feature=GenericConstraints tier=9 seed=76 result=" (feature value)))))

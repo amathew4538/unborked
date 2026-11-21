@@ -1,9 +1,9 @@
 (ns Tier15.UnspecifiedBehavior
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1562 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "UnspecifiedBehavior" value)))
+  (let [value (try (Long/parseLong (or (first args) "62")) (catch Exception _ 62))]
+    (println (str "feature=UnspecifiedBehavior tier=15 seed=62 result=" (feature value)))))

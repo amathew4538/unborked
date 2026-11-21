@@ -1,9 +1,9 @@
+fn feature_95(value: i64) -> i64 {
+    let result = (95%16)*4;
+    result + value
+}
+
 fn main() {
-    let mut records = vec![("Ada", 12u32), ("Lin", 21u32)];
-    records.sort_by_key(|record| record.1);
-    println!(
-        "feature=ArrayLayout records={:?} heap_bytes={}",
-        records,
-        records.len() * std::mem::size_of::<(&str, u32)>()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(95);
+    println!("feature=ArrayLayout tier=7 seed=95 result={}", feature_95(value));
 }

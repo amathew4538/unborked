@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (15%64)*(15%64)
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=KmpSearch value=\(value) result=\(applyFeature(value))")
+let seed = 15
+let value = Int(CommandLine.arguments.dropFirst().first ?? "15") ?? seed
+print("feature=KmpSearch tier=13 seed=\(seed) result=\(feature(seed, value))")

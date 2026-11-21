@@ -1,9 +1,14 @@
 using System;
-public class BitwiseShift
-{
-    public static void Main(string[] args)
-    {
-        int sum = 0; foreach (var arg in args) { if (int.TryParse(arg, out int n)) sum += n; }
-        Console.WriteLine("feature=BitwiseShift args=" + args.Length + " sum=" + sum);
+
+public class BitwiseShift {
+    public static long Feature(long seed, long value) {
+        long result = 38*17+3;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 38;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=BitwiseShift tier=6 seed=38 result=" + Feature(38, value));
     }
 }

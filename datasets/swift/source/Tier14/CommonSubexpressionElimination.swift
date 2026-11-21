@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = (52*(52+1))/2
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=CommonSubexpressionElimination value=\(value) result=\(applyFeature(value))")
+let seed = 52
+let value = Int(CommandLine.arguments.dropFirst().first ?? "52") ?? seed
+print("feature=CommonSubexpressionElimination tier=14 seed=\(seed) result=\(feature(seed, value))")

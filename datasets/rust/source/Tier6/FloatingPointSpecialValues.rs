@@ -1,9 +1,9 @@
-use std::env;
+fn feature_30(value: i64) -> i64 {
+    let result = 30*17+3;
+    result + value
+}
+
 fn main() {
-    let input = env::args().nth(1).unwrap_or_else(|| "42".into());
-    let value: i64 = input.parse().unwrap_or(42);
-    println!(
-        "feature=FloatingPointSpecialValues value={} bits={:b}",
-        value, value as u64
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(30);
+    println!("feature=FloatingPointSpecialValues tier=6 seed=30 result={}", feature_30(value));
 }

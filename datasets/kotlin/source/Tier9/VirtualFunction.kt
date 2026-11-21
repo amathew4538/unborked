@@ -1,8 +1,11 @@
 package datasets.kotlin.source.Tier9
 
-fun applyFeature(value: Int): Int = value * value + 3
+fun feature(seed: Long, value: Long): Long {
+    val result = seed * 17 + 3L
+    return result + seed + value
+}
 
 fun main(args: Array<String>) {
-    val value = args.firstOrNull()?.toIntOrNull() ?: 42
-    println("feature=VirtualFunction value=$value result=${applyFeature(value)}")
+    val value = args.firstOrNull()?.toLongOrNull() ?: 81L
+    println("feature=VirtualFunction tier=9 seed=81 result=${feature(81L, value)}")
 }

@@ -1,9 +1,9 @@
 (ns Tier6.ImplicitConversion
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 628 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ImplicitConversion" value)))
+  (let [value (try (Long/parseLong (or (first args) "28")) (catch Exception _ 28))]
+    (println (str "feature=ImplicitConversion tier=6 seed=28 result=" (feature value)))))

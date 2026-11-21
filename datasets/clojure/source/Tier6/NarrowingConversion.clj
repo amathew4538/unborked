@@ -1,9 +1,9 @@
 (ns Tier6.NarrowingConversion
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 693 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "NarrowingConversion" value)))
+  (let [value (try (Long/parseLong (or (first args) "93")) (catch Exception _ 93))]
+    (println (str "feature=NarrowingConversion tier=6 seed=93 result=" (feature value)))))

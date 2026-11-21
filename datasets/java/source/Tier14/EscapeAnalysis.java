@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class EscapeAnalysis {
+    public static long feature(long seed, long value) {
+        long result = (66*(66+1))/2;
+        return result + seed + value;
+    }
+
     public static void main(String[] args) {
-        int sum = 0;
-        for (String arg : args) {
-            try {
-                sum += Integer.parseInt(arg);
-            } catch (NumberFormatException ignored) {
-            }
+        long value = 66;
+        if (args.length > 0) {
+            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
         }
-        System.out.printf("feature=EscapeAnalysis args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=EscapeAnalysis tier=14 seed=66 result=%d%%n", feature(66, value));
     }
 }

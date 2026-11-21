@@ -1,7 +1,14 @@
 using System;
+
 public class CInterop {
- public static void Main(string[] args) {
-  int sum=0; foreach(var arg in args){ if(int.TryParse(arg,out int n)) sum+=n; }
-  Console.WriteLine("feature=CInterop args="+args.Length+" sum="+sum);
- }
+    public static long Feature(long seed, long value) {
+        long result = 86+32;
+        return result + seed + value;
+    }
+
+    public static void Main(string[] args) {
+        long value = 86;
+        if (args.Length > 0) { long.TryParse(args[0], out value); }
+        Console.WriteLine("feature=CInterop tier=10 seed=86 result=" + Feature(86, value));
+    }
 }

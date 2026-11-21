@@ -1,13 +1,11 @@
 import std.conv : to;
 import std.stdio : writeln;
 
-int applyFeature(int value)
-{
-    return value * value + 3;
+long feature(long seed, long value) {
+    long result = (59%11)+40;
+    return result + seed + value;
 }
-
-void main(string[] args)
-{
-    int value = args.length > 1 ? args[1].to!int : 42;
-    writeln("feature=Annotations value=", value, " result=", applyFeature(value));
+void main(string[] args) {
+    long value = args.length > 1 ? args[1].to!long : 59;
+    writeln("feature=Annotations tier=9 seed=59 result=", feature(59, value));
 }

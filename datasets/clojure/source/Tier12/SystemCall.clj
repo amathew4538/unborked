@@ -1,9 +1,9 @@
 (ns Tier12.SystemCall
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1261 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SystemCall" value)))
+  (let [value (try (Long/parseLong (or (first args) "61")) (catch Exception _ 61))]
+    (println (str "feature=SystemCall tier=12 seed=61 result=" (feature value)))))

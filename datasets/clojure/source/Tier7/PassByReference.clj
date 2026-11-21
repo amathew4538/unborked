@@ -1,9 +1,9 @@
 (ns Tier7.PassByReference
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 720 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "PassByReference" value)))
+  (let [value (try (Long/parseLong (or (first args) "20")) (catch Exception _ 20))]
+    (println (str "feature=PassByReference tier=7 seed=20 result=" (feature value)))))

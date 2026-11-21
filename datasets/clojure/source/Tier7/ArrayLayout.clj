@@ -1,9 +1,9 @@
 (ns Tier7.ArrayLayout
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 795 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "ArrayLayout" value)))
+  (let [value (try (Long/parseLong (or (first args) "95")) (catch Exception _ 95))]
+    (println (str "feature=ArrayLayout tier=7 seed=95 result=" (feature value)))))

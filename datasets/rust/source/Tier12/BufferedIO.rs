@@ -1,11 +1,9 @@
-use std::env;
-use std::io::{self, Read};
+fn feature_16(value: i64) -> i64 {
+    let result = 16%1024;
+    result + value
+}
+
 fn main() {
-    let mut data = String::new();
-    let _ = io::stdin().read_to_string(&mut data);
-    println!(
-        "feature=BufferedIO args={:?} stdin_bytes={}",
-        env::args().collect::<Vec<_>>(),
-        data.len()
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(16);
+    println!("feature=BufferedIO tier=12 seed=16 result={}", feature_16(value));
 }

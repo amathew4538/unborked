@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 21
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 21
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=ThreadLocalStorage value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=ThreadLocalStorage tier=10 seed=21 result=' + feature(21, value).str())
 }

@@ -1,9 +1,9 @@
 (ns Tier12.FileWrite
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1243 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "FileWrite" value)))
+  (let [value (try (Long/parseLong (or (first args) "43")) (catch Exception _ 43))]
+    (println (str "feature=FileWrite tier=12 seed=43 result=" (feature value)))))

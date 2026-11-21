@@ -1,9 +1,9 @@
 (ns Tier11.AtomicLoad
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1146 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "AtomicLoad" value)))
+  (let [value (try (Long/parseLong (or (first args) "46")) (catch Exception _ 46))]
+    (println (str "feature=AtomicLoad tier=11 seed=46 result=" (feature value)))))

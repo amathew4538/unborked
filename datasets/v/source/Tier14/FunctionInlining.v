@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 41
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 41
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=FunctionInlining value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=FunctionInlining tier=14 seed=41 result=' + feature(41, value).str())
 }

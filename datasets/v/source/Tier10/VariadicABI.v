@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 76
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 76
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=VariadicABI value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=VariadicABI tier=10 seed=76 result=' + feature(76, value).str())
 }

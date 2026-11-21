@@ -1,9 +1,9 @@
 (ns Tier8.Goto
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 818 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "Goto" value)))
+  (let [value (try (Long/parseLong (or (first args) "18")) (catch Exception _ 18))]
+    (println (str "feature=Goto tier=8 seed=18 result=" (feature value)))))

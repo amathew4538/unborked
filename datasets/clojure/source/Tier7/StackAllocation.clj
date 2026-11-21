@@ -1,9 +1,9 @@
 (ns Tier7.StackAllocation
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 751 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "StackAllocation" value)))
+  (let [value (try (Long/parseLong (or (first args) "51")) (catch Exception _ 51))]
+    (println (str "feature=StackAllocation tier=7 seed=51 result=" (feature value)))))

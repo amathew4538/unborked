@@ -1,9 +1,9 @@
 (ns Tier12.StandardOutput
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1223 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "StandardOutput" value)))
+  (let [value (try (Long/parseLong (or (first args) "23")) (catch Exception _ 23))]
+    (println (str "feature=StandardOutput tier=12 seed=23 result=" (feature value)))))

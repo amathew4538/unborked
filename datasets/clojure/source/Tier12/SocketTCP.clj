@@ -1,9 +1,9 @@
 (ns Tier12.SocketTCP
   (:gen-class))
 
-(defn apply-feature [feature value]
-  (println (str "feature=" feature " value=" value " doubled=" (* value 2))))
+(defn feature [value]
+  (+ 1201 value))
 
 (defn -main [& args]
-  (let [value (try (Integer/parseInt (or (first args) "42")) (catch Exception _ 42))]
-    (apply-feature "SocketTCP" value)))
+  (let [value (try (Long/parseLong (or (first args) "1")) (catch Exception _ 1))]
+    (println (str "feature=SocketTCP tier=12 seed=1 result=" (feature value)))))

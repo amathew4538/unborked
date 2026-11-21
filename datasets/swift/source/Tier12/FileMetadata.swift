@@ -1,8 +1,9 @@
 import Foundation
 
-func applyFeature(_ value: Int) -> Int {
-    value * value + 3
+func feature(_ seed: Int, _ value: Int) -> Int {
+    let result = 40%1024
+    return result + seed + value
 }
-
-let value = Int(CommandLine.arguments.dropFirst().first ?? "42") ?? 42
-print("feature=FileMetadata value=\(value) result=\(applyFeature(value))")
+let seed = 40
+let value = Int(CommandLine.arguments.dropFirst().first ?? "40") ?? seed
+print("feature=FileMetadata tier=12 seed=\(seed) result=\(feature(seed, value))")

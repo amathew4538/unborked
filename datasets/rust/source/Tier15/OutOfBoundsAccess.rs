@@ -1,17 +1,9 @@
-fn checked_divide(a: i64, b: i64) -> Result<i64, &'static str> {
-    if b == 0 {
-        Err("division by zero")
-    } else {
-        Ok(a / b)
-    }
+fn feature_94(value: i64) -> i64 {
+    let result = 100/((94%9)+1);
+    result + value
 }
+
 fn main() {
-    println!(
-        "feature=OutOfBoundsAccess result={:?}",
-        checked_divide(100, 4)
-    );
-    println!(
-        "feature=OutOfBoundsAccess result={:?}",
-        checked_divide(100, 0)
-    );
+    let value = std::env::args().nth(1).and_then(|v| v.parse::<i64>().ok()).unwrap_or(94);
+    println!("feature=OutOfBoundsAccess tier=15 seed=94 result={}", feature_94(value));
 }

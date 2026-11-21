@@ -1,12 +1,13 @@
 import os
 
-fn apply_feature(value: int) int {
-    return value * value + 3
+fn feature(seed int, value int) int {
+    result := seed + value + 10
+    return result
 }
 
 fn main() {
-    mut value := 42
+    mut value := 10
     args := os.args
     if args.len > 1 { value = args[1].int() }
-    println('feature=Checksum value=' + value.str() + ' result=' + apply_feature(value).str())
+    println('feature=Checksum tier=13 seed=10 result=' + feature(10, value).str())
 }

@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class Closure {
+    public static long feature(long seed, long value) {
+        long result = 45+((45%5)*7);
+        return result + seed + value;
+    }
+
     public static void main(String[] args) {
-        int sum = 0;
-        for (String arg : args) {
-            try {
-                sum += Integer.parseInt(arg);
-            } catch (NumberFormatException ignored) {
-            }
+        long value = 45;
+        if (args.length > 0) {
+            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
         }
-        System.out.printf("feature=Closure args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=Closure tier=8 seed=45 result=%d%%n", feature(45, value));
     }
 }
