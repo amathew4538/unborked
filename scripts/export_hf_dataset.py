@@ -8,12 +8,22 @@ import hashlib
 import json
 from pathlib import Path
 
-
-ROOT = Path(__file__).resolve().parent.parent
-DATASETS = ROOT / "datasets"
+import pyarrow as pa
+import pyarrow.parquet as pq
+from build_dataset import DATASETS, ROOT
+from datasets.arrow_dataset import Dataset  # type: ignore[import-untyped]
 
 
 def read_text(path: Path) -> str | None:
+    """
+    Read file text
+    
+    :param path: Path to file
+    :type path: Path
+    :return: The text within
+    :rtype: str | None
+    """
+
     try:
         return path.read_text(encoding="utf-8")
     except (UnicodeDecodeError, OSError):
@@ -21,27 +31,36 @@ def read_text(path: Path) -> str | None:
 
 
 def iter_artifacts():
+    """
+    Iterates through artifacts
+    """
+
     for language_dir in sorted(DATASETS.iterdir()):
         if not language_dir.is_dir():
             continue
+
         language = language_dir.name
         bin_root = language_dir / "bin"
         asm_root = language_dir / "asm"
         source_root = language_dir / "source"
+
         if not source_root.is_dir():
             continue
 
         for source in sorted(source_root.rglob("*")):
             if not source.is_file():
                 continue
+
             relative = source.relative_to(source_root)
             tier = relative.parts[0] if relative.parts else ""
             script = source.stem
+
             if "_A" in script:
                 continue
 
             bin_dir = bin_root / tier
             asm_dir = asm_root / tier
+
             binary_matches = (
                 sorted(bin_dir.glob(f"{script}*")) if bin_dir.is_dir() else []
             )
@@ -52,6 +71,7 @@ def iter_artifacts():
             for binary in binary_matches:
                 if not binary.is_file() or binary.suffix == ".zst":
                     continue
+
                 content = binary.read_bytes()
                 assembly = next(
                     (
@@ -61,6 +81,7 @@ def iter_artifacts():
                     ),
                     None,
                 )
+
                 yield {
                     "language": language,
                     "tier": tier,
@@ -78,8 +99,17 @@ def iter_artifacts():
 
 
 def export_pyarrow(rows, output: Path, shard_size: int) -> list[Path]:
-    import pyarrow as pa
-    import pyarrow.parquet as pq
+    """
+    Export Pyarrow style for dataset
+    
+    :param rows: Row count for pyarrow
+    :param output: Where to output
+    :type output: Path
+    :param shard_size: How big to make the pyarrows
+    :type shard_size: int
+    :return: List of pyarrow files
+    :rtype: list[Path]
+    """
 
     fields = [
         ("language", pa.string()),
@@ -93,10 +123,12 @@ def export_pyarrow(rows, output: Path, shard_size: int) -> list[Path]:
         ("assembly_path", pa.string()),
         ("assembly", pa.string()),
     ]
+
     schema = pa.schema(fields)
     output.mkdir(parents=True, exist_ok=True)
     shard = []
-    paths = []
+    paths: list[Path] = []
+
     for index, row in enumerate(rows, start=1):
         shard.append(row)
         if len(shard) == shard_size:
@@ -104,15 +136,25 @@ def export_pyarrow(rows, output: Path, shard_size: int) -> list[Path]:
             pq.write_table(pa.Table.from_pylist(shard, schema=schema), path, compression="zstd")
             paths.append(path)
             shard = []
+
     if shard:
         path = output / f"dataset-{len(paths):05d}.parquet"
         pq.write_table(pa.Table.from_pylist(shard, schema=schema), path, compression="zstd")
         paths.append(path)
+
     return paths
 
 
 def export_datasets(rows, output: Path) -> list[Path]:
-    from datasets import Dataset
+    """
+    Export final datasets
+    
+    :param rows: Rows of the dataset
+    :param output: Where to output
+    :type output: Path
+    :return: List of outputs
+    :rtype: list[Path]
+    """
 
     dataset = Dataset.from_list(list(rows))
     output.mkdir(parents=True, exist_ok=True)
@@ -122,6 +164,13 @@ def export_datasets(rows, output: Path) -> list[Path]:
 
 
 def main() -> int:
+    """
+    Main function for script
+    
+    :return: Error code
+    :rtype: int
+    """
+
     parser = argparse.ArgumentParser(
         description="Export source and compiled artifacts to Zstandard-compressed Parquet."
     )
@@ -166,8 +215,10 @@ def main() -> int:
             for path in paths
         ],
     }
+
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Exported {len(rows)} rows to {len(paths)} Parquet shard(s)")
+
     return 0
 
 

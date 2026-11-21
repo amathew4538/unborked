@@ -19,6 +19,8 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+import zstandard
+
 USE_COLOR = sys.stdout.isatty()
 GREEN = "\033[92m" if USE_COLOR else ""
 RED = "\033[91m" if USE_COLOR else ""
@@ -400,6 +402,7 @@ class BuildError(Exception):
 
 def clang_opt_flag(optimization: str) -> str:
     """Convert a dataset optimization label to a Clang-style flag."""
+
     if optimization in {"Os", "Oz"}:
         return f"-O{optimization[-1]}"
     return f"-O{int(optimization[1:])}"
@@ -407,6 +410,7 @@ def clang_opt_flag(optimization: str) -> str:
 
 def rust_opt_level(optimization: str) -> str:
     """Convert a dataset optimization label to a rustc opt-level."""
+
     if optimization == "Os":
         return "s"
     if optimization == "Oz":
@@ -508,6 +512,7 @@ def clean_root_artifacts() -> None:
 
 def clean_ghc_intermediates(source: Path) -> None:
     """Remove GHC intermediates left beside a source file by earlier runs."""
+
     for suffix in (".hi", ".o", ".dyn_hi", ".dyn_o"):
         stale = source.with_suffix(suffix)
         if stale.is_file():
@@ -516,6 +521,7 @@ def clean_ghc_intermediates(source: Path) -> None:
 
 def make_jar(classes_dir: Path, jar_path: Path) -> None:
     """Package class files and language metadata into a standards-compliant JAR."""
+
     jar_path.parent.mkdir(parents=True, exist_ok=True)
     manifest = "Manifest-Version: 1.0\r\n\r\n"
     with zipfile.ZipFile(jar_path, "w", compression=zipfile.ZIP_DEFLATED) as jar:
@@ -539,6 +545,7 @@ def build_jvm(
     """
     Build Java JVM-based languages
     """
+
     classes_dir = stage / "classes"
     classes_dir.mkdir(parents=True, exist_ok=True)
 
@@ -650,6 +657,7 @@ def get_dotnet_target_framework(verbose: bool) -> str:
     """
     Gets the Dotnet framework
     """
+
     result = run_command(["dotnet", "--list-sdks"], verbose=verbose)
     versions = re.findall(r"^\s*(\d+)\.(\d+)\.\d+", result.stdout or "", re.MULTILINE)
     if not versions:
@@ -664,6 +672,7 @@ def write_il_dump(assembly: Path, output_asm: Path, verbose: bool) -> None:
     """
     Write IL for C# Languages
     """
+
     monodis = shutil.which("monodis")
     ildasm = shutil.which("ildasm")
     if monodis:
@@ -690,6 +699,7 @@ def build_dotnet(
     """
     Build .NET C# scripts
     """
+
     project_dir = stage / "project"
     output_dir = stage / "output"
     project_dir.mkdir(parents=True, exist_ok=True)
@@ -758,6 +768,7 @@ def build_mcs(
     """
     Build Mono C# scripts
     """
+
     staged_exe = stage / f"{script}.exe"
     optimize_flag = "-optimize-" if optimization == "O0" else "-optimize+"
     run_command(
@@ -783,6 +794,7 @@ def build_binary(
     """
     Build other binaries
     """
+
     kind = LANGUAGES[language]["kind"]
     output_bin.parent.mkdir(parents=True, exist_ok=True)
     if kind == "c":
@@ -886,6 +898,7 @@ def build_assembly(
     """
     Build ASM for other scripts
     """
+
     kind = LANGUAGES[language]["kind"]
     output_asm.parent.mkdir(parents=True, exist_ok=True)
     if kind == "c":
@@ -1055,6 +1068,7 @@ def compile_language_specific(
     config: dict,
 ) -> None:
     """Compile dedicated language-specific examples outside the global tier catalog."""
+
     kind = config["kind"]
     scripts = LANG_SPECIFIC_SCRIPTS.get(language, ())
     if not scripts:
@@ -1180,6 +1194,7 @@ def compile_scripts(
     max_asm_mb: int | None = None,
 ) -> None:
     """Compile all scripts"""
+
     clean_root_artifacts()
 
     if isinstance(active_languages, dict):
@@ -1407,7 +1422,8 @@ def compile_scripts(
                             )
                         else:
                             print(
-                                f"{RED}Failed {optimization or 'default'}: no final artifacts created.{RESET}"
+                                f"{RED}Failed {optimization or 'default'}: " +
+                                f"no final artifacts created.{RESET}"
                             )
 
                 if language == "haskell":
@@ -1426,6 +1442,7 @@ def write_build_metadata(
     output_asm: Path,
 ) -> None:
     """Write a small machine-readable record for a successful compilation."""
+
     metadata = {
         "language": language,
         "tier": tier,
@@ -1448,10 +1465,6 @@ def compress_artifacts(
     delete_original: bool = False,
 ) -> int:
     """Create Zstandard .zst copies of compiled binaries and assembly/bytecode."""
-    try:
-        import zstandard
-    except ImportError:
-        zstandard = None
 
     allowed = set(active_languages)
     compressed = 0
@@ -1519,6 +1532,7 @@ def check_paths() -> None:
     """
     Check if paths are right
     """
+
     for language in LANGUAGES:
         source_root = DATASETS / language / "source"
 
@@ -1552,6 +1566,7 @@ def check_paths() -> None:
 
 def export_csv(languages) -> None:
     """Calculate expected compiled files per language and write to a CSV in ROOT."""
+
     csv_path = ROOT / "dataset_file_counts.csv"
     base_script_count = sum(len(scripts) for scripts in SCRIPTS.values())
 
@@ -1614,6 +1629,7 @@ def main() -> int:
     """
     Main function
     """
+
     parser = argparse.ArgumentParser(
         prog="Build Dataset",
         description="Builds binary and assembly/bytecode dataset artifacts.",
