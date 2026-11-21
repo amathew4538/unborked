@@ -1,16 +1,16 @@
 import java.util.*;
 
 public class Lambda {
-    public static long feature(long seed, long value) {
-        long result = 34+((34%5)*7);
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 34;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=Lambda tier=8 seed=34 result=%d%%n", feature(34, value));
+        int value=args.length>0?parse(args[0]):7;
+        java.util.function.IntUnaryOperator transform=x -> x*x+3;
+        int result=transform.applyAsInt(value);
+        System.out.printf("feature=Lambda tier=8 result=%d%n", result);
     }
 }

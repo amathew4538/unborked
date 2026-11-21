@@ -9,6 +9,6 @@ public class OperatorOverloading {
             } catch (NumberFormatException ignored) {
             }
         }
-        System.out.printf("feature=OperatorOverloading args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=OperatorOverloading args=%d sum=%d%n", args.length, sum);
     }
 }

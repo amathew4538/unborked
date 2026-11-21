@@ -1,16 +1,14 @@
-import java.util.*;
-
 public class CInterop {
-    public static long feature(long seed, long value) {
-        long result = 86+32;
-        return result + seed + value;
-    }
+    // A native implementation would export this JNI signature.
+    private native int parseNativePort(String text);
 
     public static void main(String[] args) {
-        long value = 86;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
+        String text = args.length > 0 ? args[0] : "8080";
+        try {
+            int port = Integer.parseInt(text);
+            System.out.printf("CInterop JNI-signature text=%s port=%d valid=%s%n", text, port, port >= 1 && port <= 65535 ? "true" : "false");
+        } catch (NumberFormatException error) {
+            System.out.printf("CInterop JNI-signature text=%s valid=false%n", text);
         }
-        System.out.printf("feature=CInterop tier=10 seed=86 result=%d%%n", feature(86, value));
     }
 }

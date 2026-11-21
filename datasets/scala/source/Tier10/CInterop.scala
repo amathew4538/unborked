@@ -1,6 +1,5 @@
 @main def main(args: String*): Unit = {
-  val seed = 86L
-  val value = args.headOption.flatMap(v => scala.util.Try(v.toLong).toOption).getOrElse(seed)
-  val result = (86+32) + seed + value
-  println(s"feature=CInterop tier=10 seed=$seed result=$result")
+  val text = args.headOption.getOrElse("8080")
+  val port = text.toIntOption
+  println(s"CInterop JNI-signature text=$text port=${port.getOrElse(-1)} valid=${port.exists(v => v >= 1 && v <= 65535)}")
 }

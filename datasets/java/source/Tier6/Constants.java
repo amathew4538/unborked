@@ -1,16 +1,16 @@
 import java.util.*;
 
 public class Constants {
-    public static long feature(long seed, long value) {
-        long result = 27*17+3;
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 27;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=Constants tier=6 seed=27 result=%d%%n", feature(27, value));
+        int[] widths={8,16,32,64};
+        long mask=(1L << widths[2]) - 1L;
+        long value=args.length>0?parse(args[0]):-42L;
+        System.out.printf("feature=Constants tier=6 value=%d masked=%d%n", value, value & mask);
     }
 }

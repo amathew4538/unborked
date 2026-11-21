@@ -1,16 +1,14 @@
 import java.util.*;
 
 public class ProcessSpawn {
-    public static long feature(long seed, long value) {
-        long result = 63%1024;
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 63;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=ProcessSpawn tier=12 seed=63 result=%d%%n", feature(63, value));
+        String input=args.length>0?args[0]:"status=ok";
+        System.out.printf("feature=ProcessSpawn tier=12 input=%s bytes=%d%n", input, input.getBytes(java.nio.charset.StandardCharsets.UTF_8).length);
     }
 }

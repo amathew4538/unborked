@@ -1,16 +1,16 @@
 import java.util.*;
 
 public class AsyncAwait {
-    public static long feature(long seed, long value) {
-        long result = 1+(71%8);
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 71;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=AsyncAwait tier=11 seed=71 result=%d%%n", feature(71, value));
+        int workers=args.length>0?parse(args[0]):4;
+        java.util.concurrent.ExecutorService pool=java.util.concurrent.Executors.newFixedThreadPool(Math.max(1,workers));
+        java.util.concurrent.Future<Integer> job=pool.submit(() -> workers*25);
+        try { System.out.printf("feature=AsyncAwait tier=11 result=%d%n", job.get()); } catch (InterruptedException | java.util.concurrent.ExecutionException error) { System.out.println("feature="+error.getClass().getSimpleName()); } finally { pool.shutdown(); }
     }
 }

@@ -1,16 +1,16 @@
 import java.util.*;
 
 public class InlineAssembly {
-    public static long feature(long seed, long value) {
-        long result = (28*(28+1))/2;
-        return result + seed + value;
+    public static int parseArg(String[] args, int fallback) {
+        if(args.length>0) try { return Integer.parseInt(args[0]); } catch(NumberFormatException ignored) {}
+        return fallback;
     }
+    public static int parse(String text) { try { return Integer.parseInt(text); } catch(NumberFormatException ignored) { return 7; } }
 
     public static void main(String[] args) {
-        long value = 28;
-        if (args.length > 0) {
-            try { value = Long.parseLong(args[0]); } catch (NumberFormatException ignored) {}
-        }
-        System.out.printf("feature=InlineAssembly tier=14 seed=28 result=%d%%n", feature(28, value));
+        int value=parseArg(args,1024);
+        int sum=0;
+        for(int i=0;i<value;i++) sum += i*i;
+        System.out.printf("feature=InlineAssembly tier=14 sum=%d%n", sum);
     }
 }

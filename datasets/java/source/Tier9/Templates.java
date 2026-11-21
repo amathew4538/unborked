@@ -9,6 +9,6 @@ public class Templates {
             } catch (NumberFormatException ignored) {
             }
         }
-        System.out.printf("feature=Templates args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=Templates args=%d sum=%d%n", args.length, sum);
     }
 }

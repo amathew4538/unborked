@@ -9,6 +9,6 @@ public class Defer {
             } catch (NumberFormatException ignored) {
             }
         }
-        System.out.printf("feature=Defer args=%d sum=%d%%n", args.length, sum);
+        System.out.printf("feature=Defer args=%d sum=%d%n", args.length, sum);
     }
 }

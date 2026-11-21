@@ -1,20 +1,21 @@
 package main
-
+/*
+#include <stdlib.h>
+*/
+import "C"
 import (
     "fmt"
     "os"
-    "strconv"
+    "unsafe"
 )
 
-func feature(seed int64, value int64) int64 {
-    result := int64(86+32)
-    return result + value + seed
-}
-
 func main() {
-    value := int64(86)
-    if len(os.Args) > 1 {
-        if parsed, err := strconv.ParseInt(os.Args[1], 10, 64); err == nil { value = parsed }
-    }
-    fmt.Printf("feature=CInterop tier=10 seed=86 result=%d\n", feature(86, value))
+    text := "8080"
+    if len(os.Args) > 1 { text = os.Args[1] }
+    cText := C.CString(text)
+    defer C.free(unsafe.Pointer(cText))
+    var end *C.char
+    port := C.strtol(cText, &end, 10)
+    valid := port >= 1 && port <= 65535
+    fmt.Printf("CInterop cgo=strtol port=%d valid=%t\n", port, valid)
 }

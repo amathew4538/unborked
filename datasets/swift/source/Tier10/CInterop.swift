@@ -1,9 +1,6 @@
 import Foundation
 
-func feature(_ seed: Int, _ value: Int) -> Int {
-    let result = 86+32
-    return result + seed + value
-}
-let seed = 86
-let value = Int(CommandLine.arguments.dropFirst().first ?? "86") ?? seed
-print("feature=CInterop tier=10 seed=\(seed) result=\(feature(seed, value))")
+let text = CommandLine.arguments.dropFirst().first ?? "8080"
+let port = strtol(text, nil, 10)
+let valid = port >= 1 && port <= 65535
+print("CInterop C-call=strtol port=\(port) valid=\(valid)")
